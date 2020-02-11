@@ -32,6 +32,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import java.awt.Label;
+import javax.swing.JSlider;
+import java.awt.Button;
 
 /**
  * This was made using Window Builder's plug in in Eclipse IDE
@@ -93,16 +96,37 @@ public class Window extends JFrame {
 		firstParameter = new JTextField();
 		firstParameter.setHorizontalAlignment(SwingConstants.CENTER);
 		firstParameter.setText("0");
-		firstParameter.setBounds(517, 28, 42, 19);
+		firstParameter.setBounds(409, 28, 42, 19);
 		panel.add(firstParameter);
 		firstParameter.setColumns(10);
 		
 		secondParameter = new JTextField();
 		secondParameter.setHorizontalAlignment(SwingConstants.CENTER);
 		secondParameter.setText("0");
-		secondParameter.setBounds(560, 28, 42, 19);
+		secondParameter.setBounds(452, 28, 42, 19);
 		panel.add(secondParameter);
 		secondParameter.setColumns(10);
+		
+		Label label = new Label("( X , Y )");
+		label.setAlignment(Label.CENTER);
+		label.setBounds(409, 3, 85, 21);
+		panel.add(label);
+		
+		JSlider slider = new JSlider();
+		slider.setBounds(788, 25, 200, 16);
+		panel.add(slider);
+		
+		Label label_1 = new Label("Scale");
+		label_1.setBounds(866, 3, 68, 21);
+		panel.add(label_1);
+		
+		Button button = new Button("Clear");
+		button.setBounds(539, 18, 86, 23);
+		panel.add(button);
+		
+		Button button_1 = new Button("Reset");
+		button_1.setBounds(649, 18, 86, 23);
+		panel.add(button_1);
 		
 		Canvas canvas = new Plane();
 		canvas.setBackground(Color.WHITE);
@@ -134,5 +158,4 @@ public class Window extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
 	}
-
 }
