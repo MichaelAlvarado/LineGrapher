@@ -27,10 +27,22 @@ public class Plane extends Canvas{
 	
 	@Override 
 	public void paint(Graphics g) {
+		//draw squares
+		g.setColor(Color.LIGHT_GRAY);
+		int xgap = this.getWidth()/16; //wide of rectangles
+		int ygap = this.getHeight()/16; //height of rectangles
+		int xerror = (this.getWidth()%16)/2; //this add the pixels in x axis needed because division of integer
+		int yerror = (this.getHeight()%16)/2; //this add the pixels in y axis needed because division of integer
+		for(int i = 1; i < 16; i++) {
+			g.drawLine((i*xgap + xerror), 0, (i*xgap + xerror), this.getHeight()); //draw x lines
+			g.drawLine(0, (i*ygap + yerror), this.getWidth(), (i*ygap + yerror)); //draw y lines
+		}
+		
 		//draw AXIS
 		g.setColor(Color.BLACK);
 		g.drawLine(0, (this.getHeight()/2), this.getWidth(), (this.getHeight()/2)); //X Axis
 		g.drawLine((this.getWidth()/2), 0, (this.getWidth()/2), this.getHeight()); //Y Axis
+		
 		
 		int xOrigin = this.getWidth()/2;
 		int yOrigin = this.getHeight()/2;

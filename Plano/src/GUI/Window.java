@@ -63,9 +63,9 @@ public class Window extends JFrame {
 	 * Create the frame.
 	 */
 	public Window() {
-		int width = 1000;
-		int height = 1050;
-		int canvasY = 77;
+		int width = 1400; //width of the frame
+		int height = 1200; //height of the frame
+		int canvasY = 77; //this is the position in Y where the division is between plane and menu
 		
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
@@ -116,13 +116,13 @@ public class Window extends JFrame {
 		label_1.setBounds(866, 3, 68, 21);
 		panel.add(label_1);
 		
-		Button button = new Button("Clear");
-		button.setBounds(539, 18, 86, 23);
-		panel.add(button);
+		Button clear = new Button("Clear");
+		clear.setBounds(539, 18, 86, 23);
+		panel.add(clear);
 		
-		Button button_1 = new Button("Reset");
-		button_1.setBounds(649, 18, 86, 23);
-		panel.add(button_1);
+		Button reset = new Button("Reset");
+		reset.setBounds(649, 18, 86, 23);
+		panel.add(reset);
 		
 		Canvas canvas = new Plane();
 		canvas.setBackground(Color.WHITE);
