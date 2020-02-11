@@ -15,6 +15,8 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
 import javax.swing.ButtonGroup;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
@@ -27,6 +29,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
@@ -61,8 +64,9 @@ public class Window extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public Window() {
+	public Window() throws ParseException {
 		int width = 1400; //width of the frame
 		int height = 1200; //height of the frame
 		int canvasY = 77; //this is the position in Y where the division is between plane and menu
@@ -103,26 +107,35 @@ public class Window extends JFrame {
 		panel.add(secondParameter);
 		secondParameter.setColumns(10);
 		
-		Label label = new Label("( X , Y )");
-		label.setAlignment(Label.CENTER);
-		label.setBounds(409, 3, 85, 21);
-		panel.add(label);
+		Label coordinateLabel = new Label("( X , Y )");
+		coordinateLabel.setAlignment(Label.CENTER);
+		coordinateLabel.setBounds(409, 3, 85, 21);
+		panel.add(coordinateLabel);
 		
 		JSlider slider = new JSlider();
-		slider.setBounds(788, 25, 200, 16);
+		slider.setBounds(789, 34, 200, 16);
 		panel.add(slider);
 		
-		Label label_1 = new Label("Scale");
-		label_1.setBounds(866, 3, 68, 21);
-		panel.add(label_1);
+		Label scaleLabel = new Label("Scale");
+		scaleLabel.setAlignment(Label.CENTER);
+		scaleLabel.setBounds(850, 3, 68, 21);
+		panel.add(scaleLabel);
 		
 		Button clear = new Button("Clear");
-		clear.setBounds(539, 18, 86, 23);
+		clear.setBounds(539, 27, 86, 23);
 		panel.add(clear);
 		
 		Button reset = new Button("Reset");
-		reset.setBounds(649, 18, 86, 23);
+		reset.setBounds(649, 27, 86, 23);
 		panel.add(reset);
+		
+		MaskFormatter format = new MaskFormatter();
+		format.setMask("( ### , ### )");
+		format.setPlaceholderCharacter('_');
+		JFormattedTextField formattedTextField = new JFormattedTextField(format);
+		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField.setBounds(409, 46, 85, 19);
+		panel.add(formattedTextField);
 		
 		Canvas canvas = new Plane();
 		canvas.setBackground(Color.WHITE);
@@ -138,6 +151,7 @@ public class Window extends JFrame {
 				if(tglbtnPolarCoordinates.isSelected()) {
 					tglbtnCartasianCoordinates.setSelected(true);
 					tglbtnPolarCoordinates.setSelected(false);
+					coordinateLabel.setText("( X , Y )");
 				}
 			}
 		});
@@ -147,6 +161,7 @@ public class Window extends JFrame {
 				if(tglbtnCartasianCoordinates.isSelected()) {
 					tglbtnCartasianCoordinates.setSelected(false);
 					tglbtnPolarCoordinates.setSelected(true);
+					coordinateLabel.setText("( r , ϴ )");
 				}
 			}
 		});

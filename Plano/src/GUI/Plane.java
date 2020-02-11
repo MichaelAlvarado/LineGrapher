@@ -16,6 +16,7 @@ public class Plane extends Canvas{
 	ArrayList<Point> coordinates;
 	int pointWidth, pointHeight;
 	int scale; 
+	Point currentPoint;
 	
 	public Plane() {
 		coordinates = new ArrayList<Point>();
@@ -56,6 +57,11 @@ public class Plane extends Canvas{
 			g.fillOval((p.x*xgap)-(pointWidth/2) + xOrigin , (-p.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
 		}
 		
+		//Draw current Point
+		currentPoint = coordinates.get(coordinates.size()-1); //Testing Purposes (this will be define eveytime there is an input
+		g.setColor(Color.BLUE);
+		g.fillOval((currentPoint.x*xgap)-(pointWidth/2) + xOrigin , (-currentPoint.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
+		
 		//Draw lines from point
 		g.setColor(Color.GREEN);
 		for(int i = 1; i < coordinates.size(); i++) {
@@ -63,6 +69,6 @@ public class Plane extends Canvas{
 			Point p1 = coordinates.get(i);
 			g.drawLine(p0.x*xgap+xOrigin, -p0.y*ygap+yOrigin, p1.x*xgap+xOrigin, -p1.y*ygap+yOrigin);
 		}
-		
+				
 	}
 }
