@@ -20,6 +20,9 @@ public class Plane extends Canvas{
 	public Plane() {
 		coordinates = new ArrayList<Point>();
 		coordinates.add(new Point(0,0));
+		coordinates.add(new Point(1,3));
+		coordinates.add(new Point(-2, 4));
+		coordinates.add(new Point(-2, -5));
 		pointWidth = 10;
 		pointHeight = 10;
 		scale = 1;
@@ -48,7 +51,9 @@ public class Plane extends Canvas{
 		int yOrigin = this.getHeight()/2;
 		
 		g.setColor(Color.red);
-		g.fillOval(xOrigin-(pointWidth/2), yOrigin-(pointHeight/2), pointWidth, pointHeight);
+		for(Point p: coordinates) {
+			g.fillOval((p.x*xgap)-(pointWidth/2) + xOrigin , (-p.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
+		}
 		
 	}
 }
