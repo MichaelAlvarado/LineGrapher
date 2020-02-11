@@ -30,26 +30,26 @@ public class Plane extends Canvas{
 	
 	@Override 
 	public void paint(Graphics g) {
+		int xOrigin = this.getWidth()/2; //position in canvas of point x origin
+		int yOrigin = this.getHeight()/2; //position in canvas of point y origin
+		
 		//draw squares
 		g.setColor(Color.LIGHT_GRAY);
 		int xgap = this.getWidth()/16; //wide of rectangles
 		int ygap = this.getHeight()/16; //height of rectangles
-		int xerror = (this.getWidth()%16)/2; //this add the pixels in x axis needed because division of integer
-		int yerror = (this.getHeight()%16)/2; //this add the pixels in y axis needed because division of integer
-		for(int i = 1; i < 16; i++) {
-			g.drawLine((i*xgap + xerror), 0, (i*xgap + xerror), this.getHeight()); //draw x lines
-			g.drawLine(0, (i*ygap + yerror), this.getWidth(), (i*ygap + yerror)); //draw y lines
+		for(int i = 0; i < 8; i++) {
+			g.drawLine((xOrigin + i*xgap), 0, (xOrigin + i*xgap), this.getHeight()); //draw positive x lines
+			g.drawLine((xOrigin - i*xgap), 0, (xOrigin - i*xgap), this.getHeight()); //draw negative x lines
+			g.drawLine(0, (yOrigin - i*ygap), this.getWidth(), (yOrigin - i*ygap)); //draw positive y lines
+			g.drawLine(0, (yOrigin + i*ygap), this.getWidth(), (yOrigin + i*ygap)); //draw negative y lines
 		}
 		
 		//draw AXIS
 		g.setColor(Color.BLACK);
-		g.drawLine(0, (this.getHeight()/2), this.getWidth(), (this.getHeight()/2)); //X Axis
-		g.drawLine((this.getWidth()/2), 0, (this.getWidth()/2), this.getHeight()); //Y Axis
+		g.drawLine(0, yOrigin, this.getWidth(), yOrigin); //X Axis
+		g.drawLine(xOrigin, 0, xOrigin, this.getHeight()); //Y Axis
 		
-		
-		int xOrigin = this.getWidth()/2;
-		int yOrigin = this.getHeight()/2;
-		
+		//Draw Points
 		g.setColor(Color.red);
 		for(Point p: coordinates) {
 			g.fillOval((p.x*xgap)-(pointWidth/2) + xOrigin , (-p.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
