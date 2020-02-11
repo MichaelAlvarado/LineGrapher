@@ -41,12 +41,8 @@ import java.awt.Button;
  */
 
 public class Window extends JFrame {
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField firstParameter;
-	private JTextField secondParameter;
-	public int x;
-	public int y;
-
+	private JTextField firstParameter; //this is either X or Magnitude
+	private JTextField secondParameter; //this is either Y or Angle
 	/**
 	 * Launch the application.
 	 */
