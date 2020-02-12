@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import Main.CartesianCoordinates;
+import Main.Coordinates;
+
 /**
  * 
  * @author Michael Alvarado
@@ -13,18 +16,18 @@ import java.util.ArrayList;
  */
 public class Plane extends Canvas{
 	
-	ArrayList<Point> coordinates;
+	ArrayList<Coordinates> coordinates;
 	int pointWidth, pointHeight;
 	int scale; 
-	Point currentPoint;
+	Coordinates currentPoint;
 	
 	public Plane() {
-		coordinates = new ArrayList<Point>();
-		coordinates.add(new Point(0,0));
-		coordinates.add(new Point(1,3));
-		coordinates.add(new Point(-2,4));
-		coordinates.add(new Point(-2,-5));
-		coordinates.add(new Point(3,-2));
+		coordinates = new ArrayList<Coordinates>();
+		coordinates.add(new CartesianCoordinates(0,0));
+		coordinates.add(new CartesianCoordinates(1,3));
+		coordinates.add(new CartesianCoordinates(-2,4));
+		coordinates.add(new CartesianCoordinates(-2,-5));
+		coordinates.add(new CartesianCoordinates(3,-2));
 		pointWidth = 10;
 		pointHeight = 10;
 		scale = 1;
@@ -37,37 +40,47 @@ public class Plane extends Canvas{
 		
 		//draw squares
 		g.setColor(Color.LIGHT_GRAY);
-		int xgap = this.getWidth()/16; //wide of rectangles
-		int ygap = this.getHeight()/16; //height of rectangles
+		int xGap = this.getWidth()/16; //wide of rectangles
+		int yGap = this.getHeight()/16; //height of rectangles
+		//Its draw negative and positive axis separately to make sure they are align with axis X and Y
 		for(int i = 0; i < 8; i++) {
-			g.drawLine((xOrigin + i*xgap), 0, (xOrigin + i*xgap), this.getHeight()); //draw positive x lines
-			g.drawLine((xOrigin - i*xgap), 0, (xOrigin - i*xgap), this.getHeight()); //draw negative x lines
-			g.drawLine(0, (yOrigin - i*ygap), this.getWidth(), (yOrigin - i*ygap)); //draw positive y lines
-			g.drawLine(0, (yOrigin + i*ygap), this.getWidth(), (yOrigin + i*ygap)); //draw negative y lines
+			g.drawLine((xOrigin + i*xGap), 0, (xOrigin + i*xGap), this.getHeight()); //draw positive x lines
+			g.drawLine((xOrigin - i*xGap), 0, (xOrigin - i*xGap), this.getHeight()); //draw negative x lines
+			g.drawLine(0, (yOrigin - i*yGap), this.getWidth(), (yOrigin - i*yGap)); //draw positive y lines
+			g.drawLine(0, (yOrigin + i*yGap), this.getWidth(), (yOrigin + i*yGap)); //draw negative y lines
 		}
 		
-		//draw AXIS
+		//draw X and Y AXIS
 		g.setColor(Color.BLACK);
 		g.drawLine(0, yOrigin, this.getWidth(), yOrigin); //X Axis
 		g.drawLine(xOrigin, 0, xOrigin, this.getHeight()); //Y Axis
 		
+		//draw coordinates Number
+		g.setColor(Color.BLACK);
+		for(int s = 0; s < 8; s++) {
+			g.drawString(String.valueOf(s*this.scale), (xOrigin + s*xGap), yOrigin); //draw positive X coordinate 
+			g.drawString(String.valueOf(-s*this.scale), (xOrigin - s*xGap), yOrigin); //draw negative X coordinate 
+			g.drawString(String.valueOf(s*this.scale), xOrigin, (yOrigin - s*yGap)); //draw positive Y coordinate 
+			g.drawString(String.valueOf(-s*this.scale), xOrigin, (yOrigin + s*yGap)); //draw negative Y coordinate 
+		}
+		
 		//Draw Points
 		g.setColor(Color.red);
-		for(Point p: coordinates) {
-			g.fillOval((p.x*xgap)-(pointWidth/2) + xOrigin , (-p.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
+		for(Coordinates p: coordinates) {
+			g.fillOval((p.getX()*xGap)-(pointWidth/2) + xOrigin , (-p.getY()*yGap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
 		}
 		
 		//Draw current Point
 		currentPoint = coordinates.get(coordinates.size()-1); //Testing Purposes (this will be define eveytime there is an input
 		g.setColor(Color.BLUE);
-		g.fillOval((currentPoint.x*xgap)-(pointWidth/2) + xOrigin , (-currentPoint.y*ygap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
+		g.fillOval((currentPoint.getX()*xGap)-(pointWidth/2) + xOrigin , (-currentPoint.getY()*yGap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
 		
 		//Draw lines from point
 		g.setColor(Color.GREEN);
 		for(int i = 1; i < coordinates.size(); i++) {
-			Point p0 = coordinates.get(i-1);
-			Point p1 = coordinates.get(i);
-			g.drawLine(p0.x*xgap+xOrigin, -p0.y*ygap+yOrigin, p1.x*xgap+xOrigin, -p1.y*ygap+yOrigin);
+			Coordinates p0 = coordinates.get(i-1);
+			Coordinates p1 = coordinates.get(i);
+			g.drawLine(p0.getX()*xGap+xOrigin, -p0.getY()*yGap+yOrigin, p1.getX()*xGap+xOrigin, -p1.getY()*yGap+yOrigin);
 		}		
 	}
 	
