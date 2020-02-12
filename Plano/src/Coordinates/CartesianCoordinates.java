@@ -1,4 +1,4 @@
-package Main;
+package Coordinates;
 
 public class CartesianCoordinates extends Coordinates{
 	

@@ -2,12 +2,13 @@ package GUI;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import Main.CartesianCoordinates;
-import Main.Coordinates;
+import Coordinates.CartesianCoordinates;
+import Coordinates.Coordinates;
 
 /**
  * 
@@ -15,12 +16,12 @@ import Main.Coordinates;
  * This class is the cartasian plane where the point are going to be drawn
  */
 public class Plane extends Canvas{
-	
+
 	ArrayList<Coordinates> coordinates;
 	int pointWidth, pointHeight;
 	int scale; 
 	Coordinates currentPoint;
-	
+
 	public Plane() {
 		coordinates = new ArrayList<Coordinates>();
 		coordinates.add(new CartesianCoordinates(0,0));
@@ -32,12 +33,12 @@ public class Plane extends Canvas{
 		pointHeight = 10;
 		scale = 1;
 	}
-	
+
 	@Override 
 	public void paint(Graphics g) {
 		int xOrigin = this.getWidth()/2; //position in canvas of point x origin
 		int yOrigin = this.getHeight()/2; //position in canvas of point y origin
-		
+
 		//draw squares
 		g.setColor(Color.LIGHT_GRAY);
 		int xGap = this.getWidth()/16; //wide of rectangles
@@ -49,39 +50,44 @@ public class Plane extends Canvas{
 			g.drawLine(0, (yOrigin - i*yGap), this.getWidth(), (yOrigin - i*yGap)); //draw positive y lines
 			g.drawLine(0, (yOrigin + i*yGap), this.getWidth(), (yOrigin + i*yGap)); //draw negative y lines
 		}
-		
+
 		//draw X and Y AXIS
 		g.setColor(Color.BLACK);
 		g.drawLine(0, yOrigin, this.getWidth(), yOrigin); //X Axis
 		g.drawLine(xOrigin, 0, xOrigin, this.getHeight()); //Y Axis
-		
+
 		//draw coordinates Number
 		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.PLAIN, 14));
 		for(int s = 0; s < 8; s++) {
 			g.drawString(String.valueOf(s*this.scale), (xOrigin + s*xGap), yOrigin); //draw positive X coordinate 
 			g.drawString(String.valueOf(-s*this.scale), (xOrigin - s*xGap), yOrigin); //draw negative X coordinate 
 			g.drawString(String.valueOf(s*this.scale), xOrigin, (yOrigin - s*yGap)); //draw positive Y coordinate 
 			g.drawString(String.valueOf(-s*this.scale), xOrigin, (yOrigin + s*yGap)); //draw negative Y coordinate 
 		}
-		
+
 		//Draw Points
 		g.setColor(Color.red);
 		for(Coordinates p: coordinates) {
-			g.fillOval((p.getX()*xGap)-(pointWidth/2) + xOrigin , (-p.getY()*yGap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
+			g.fillOval(((p.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin), ((-p.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 		}
-		
-		//Draw current Point
+
+		//Draw current Point in diferent Color
 		currentPoint = coordinates.get(coordinates.size()-1); //Testing Purposes (this will be define eveytime there is an input
 		g.setColor(Color.BLUE);
-		g.fillOval((currentPoint.getX()*xGap)-(pointWidth/2) + xOrigin , (-currentPoint.getY()*yGap)-(pointHeight/2) + yOrigin, pointWidth, pointHeight);
-		
+		g.fillOval(((currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
+
 		//Draw lines from point
 		g.setColor(Color.GREEN);
 		for(int i = 1; i < coordinates.size(); i++) {
 			Coordinates p0 = coordinates.get(i-1);
 			Coordinates p1 = coordinates.get(i);
-			g.drawLine(p0.getX()*xGap+xOrigin, -p0.getY()*yGap+yOrigin, p1.getX()*xGap+xOrigin, -p1.getY()*yGap+yOrigin);
+			g.drawLine(((p0.getX()/this.scale*xGap)+xOrigin), ((-p0.getY()/this.scale*yGap)+yOrigin), ((p1.getX()/this.scale*xGap)+xOrigin), ((-p1.getY()/this.scale*yGap)+yOrigin));
 		}		
+	}
+	
+	public void setScale(int value) {
+		this.scale = value;
 	}
 	
 }
