@@ -50,6 +50,7 @@ public class Window extends JFrame {
 	private JTextField secondParameter; //this is either Y or Angle
 	private JSlider slider;
 	private Plane plane;
+	private boolean isCartasianCoordinates, isCartasianPlane;
 
 	/**
 	 * Create the frame.
@@ -68,17 +69,15 @@ public class Window extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JToggleButton tglbtnCartasianCoordinates = new JToggleButton("Cartasian Coordinates");
-		tglbtnCartasianCoordinates.setBounds(12, 25, 194, 25);
-		tglbtnCartasianCoordinates.setHorizontalAlignment(SwingConstants.LEFT);
-		tglbtnCartasianCoordinates.setSelected(true);
-		panel.add(tglbtnCartasianCoordinates);
-
-		JToggleButton tglbtnPolarCoordinates = new JToggleButton("Polar Coordinates");
-		tglbtnPolarCoordinates.setBounds(204, 25, 162, 25);
-		tglbtnPolarCoordinates.setHorizontalAlignment(SwingConstants.LEFT);
-		tglbtnCartasianCoordinates.setSelected(false);
-		panel.add(tglbtnPolarCoordinates);
+		Button planeButton = new Button("Cartasian Plane");
+		planeButton.setBounds(12, 25, 190, 25);
+		panel.add(planeButton);
+		isCartasianPlane = true;
+		
+		Button coordinates = new Button("Cartasian Coordinates");
+		coordinates.setBounds(210, 25, 190, 25);
+		panel.add(coordinates);
+		isCartasianCoordinates = true;
 
 		firstParameter = new JTextField();
 		firstParameter.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,7 +107,6 @@ public class Window extends JFrame {
 		this.slider.setBounds(789, 34, 200, 16);
 		panel.add(this.slider);
 
-
 		Button clear = new Button("Clear");
 		clear.setBounds(539, 27, 86, 23);
 		panel.add(clear);
@@ -133,41 +131,46 @@ public class Window extends JFrame {
 		/*
 		 * Add Actions to Components
 		 */
-		tglbtnCartasianCoordinates.addMouseListener(new MouseAdapter() {
+		coordinates.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(tglbtnPolarCoordinates.isSelected()) {
-					tglbtnCartasianCoordinates.setSelected(true);
-					tglbtnPolarCoordinates.setSelected(false);
+				if(isCartasianCoordinates) {
+					coordinates.setLabel("Cartasian Coordinates");
 					coordinateLabel.setText("( X , Y )");
+					isCartasianCoordinates = false;
+				}
+				else {
+					coordinates.setLabel("Polar Coordinates");
+					coordinateLabel.setText("( r , ϴ )");
+					isCartasianCoordinates = true;
 				}
 			}
 		});
-		tglbtnPolarCoordinates.addMouseListener(new MouseAdapter() {
+		planeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(tglbtnCartasianCoordinates.isSelected()) {
-					tglbtnCartasianCoordinates.setSelected(false);
-					tglbtnPolarCoordinates.setSelected(true);
-					coordinateLabel.setText("( r , ϴ )");
+				if(isCartasianPlane) {
+					planeButton.setLabel("Cartasian Plane");
+					isCartasianPlane = false;
 				}
+				else {
+					planeButton.setLabel("Polar Plane");
+					isCartasianPlane = true;
+				}
+				plane.changePlane();
 			}
 		});	
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				System.out.println(slider.getValue());
-				changeScale(slider.getValue());
+				plane.changeScale(slider.getValue());
 			}
 		});
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
 	}
-	
-	private void changeScale(int value) {
-		plane.setScale(value);
-		plane.repaint(); 
-	}
+
 
 }

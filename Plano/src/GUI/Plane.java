@@ -17,10 +17,13 @@ import Coordinates.Coordinates;
  */
 public class Plane extends Canvas{
 
-	ArrayList<Coordinates> coordinates;
-	int pointWidth, pointHeight;
+	ArrayList<Coordinates> coordinates; 
+	int pointWidth, pointHeight; //points of coordinates
+	int xGap, yGap; //this is the distance of line to line
+	int xOrigin, yOrigin;
 	int scale; 
-	Coordinates currentPoint;
+	Coordinates currentPoint; //last coordinate 
+	boolean isCartasianPlane; //to print cartasian or polar plane
 
 	public Plane() {
 		coordinates = new ArrayList<Coordinates>();
@@ -32,25 +35,40 @@ public class Plane extends Canvas{
 		pointWidth = 10;
 		pointHeight = 10;
 		scale = 1;
+		xGap = this.getWidth()/16; //wide of rectangles
+		yGap = this.getHeight()/16; //height of rectangles
+		isCartasianPlane = true;
+		xOrigin = this.getWidth()/2; //position in canvas of point x origin
+		yOrigin = this.getHeight()/2; //position in canvas of point y origin
 	}
 
 	@Override 
 	public void paint(Graphics g) {
-		int xOrigin = this.getWidth()/2; //position in canvas of point x origin
-		int yOrigin = this.getHeight()/2; //position in canvas of point y origin
-
-		//draw squares
-		g.setColor(Color.LIGHT_GRAY);
-		int xGap = this.getWidth()/16; //wide of rectangles
-		int yGap = this.getHeight()/16; //height of rectangles
-		//Its draw negative and positive axis separately to make sure they are align with axis X and Y
-		for(int i = 0; i < 8; i++) {
-			g.drawLine((xOrigin + i*xGap), 0, (xOrigin + i*xGap), this.getHeight()); //draw positive x lines
-			g.drawLine((xOrigin - i*xGap), 0, (xOrigin - i*xGap), this.getHeight()); //draw negative x lines
-			g.drawLine(0, (yOrigin - i*yGap), this.getWidth(), (yOrigin - i*yGap)); //draw positive y lines
-			g.drawLine(0, (yOrigin + i*yGap), this.getWidth(), (yOrigin + i*yGap)); //draw negative y lines
+		//have to initialize the variable here IDK why
+		xGap = this.getWidth()/16; //wide of rectangles
+		yGap = this.getHeight()/16; //height of rectangles
+		xOrigin = this.getWidth()/2; //position in canvas of point x origin
+		yOrigin = this.getHeight()/2; //position in canvas of point y origin
+		
+		//draw squares cartesian Plane
+		if(isCartasianPlane) {
+			g.setColor(Color.LIGHT_GRAY);
+			//Its draw negative and positive axis separately to make sure they are align with axis X and Y
+			for(int i = 0; i < 8; i++) {
+				g.drawLine((xOrigin + i*xGap), 0, (xOrigin + i*xGap), this.getHeight()); //draw positive x lines
+				g.drawLine((xOrigin - i*xGap), 0, (xOrigin - i*xGap), this.getHeight()); //draw negative x lines
+				g.drawLine(0, (yOrigin - i*yGap), this.getWidth(), (yOrigin - i*yGap)); //draw positive y lines
+				g.drawLine(0, (yOrigin + i*yGap), this.getWidth(), (yOrigin + i*yGap)); //draw negative y lines
+			}
 		}
-
+		
+		//draw polar Plane
+		else {
+			for(int i = 1; i < 30; i++) {
+			g.drawOval(xOrigin - (i*xGap/2), yOrigin - (i*yGap/2), i*xGap, i*yGap);
+			}
+		}
+		
 		//draw X and Y AXIS
 		g.setColor(Color.BLACK);
 		g.drawLine(0, yOrigin, this.getWidth(), yOrigin); //X Axis
@@ -85,9 +103,15 @@ public class Plane extends Canvas{
 			g.drawLine(((p0.getX()/this.scale*xGap)+xOrigin), ((-p0.getY()/this.scale*yGap)+yOrigin), ((p1.getX()/this.scale*xGap)+xOrigin), ((-p1.getY()/this.scale*yGap)+yOrigin));
 		}		
 	}
-	
-	public void setScale(int value) {
+
+	public void changeScale(int value) {
 		this.scale = value;
+		this.repaint();
 	}
 	
+	public void changePlane() {
+		this.isCartasianPlane = !this.isCartasianPlane;
+		this.repaint();
+	}
+
 }
