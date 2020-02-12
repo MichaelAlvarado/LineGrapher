@@ -68,7 +68,7 @@ public class Plane extends Canvas{
 			Point p0 = coordinates.get(i-1);
 			Point p1 = coordinates.get(i);
 			g.drawLine(p0.x*xgap+xOrigin, -p0.y*ygap+yOrigin, p1.x*xgap+xOrigin, -p1.y*ygap+yOrigin);
-		}
-				
+		}		
 	}
+	
 }

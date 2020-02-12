@@ -14,4 +14,5 @@ public class CartesianCoordinates extends Coordinates{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 }

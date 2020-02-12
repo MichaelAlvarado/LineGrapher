@@ -29,5 +29,20 @@ public class Coordinates {
 		this.y = y;
 	}
 
+	public int getR() {
+		return r;
+	}
+
+	public void setR(int r) {
+		this.r = r;
+	}
+
+	public int getO() {
+		return O;
+	}
+
+	public void setO(int o) {
+		O = o;
+	}
 	
 }

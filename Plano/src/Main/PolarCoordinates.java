@@ -6,6 +6,7 @@ public class PolarCoordinates extends Coordinates{
 		super(changePolarToX(r,O), changePolarToY(r,O), r, O);
 	}
 
+	
 	private static int changePolarToY(int r, int o) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -15,4 +16,5 @@ public class PolarCoordinates extends Coordinates{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 }
