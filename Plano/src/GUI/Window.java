@@ -125,13 +125,13 @@ public class Window extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartasianCoordinates) {
-					coordinatesButton.setLabel("Cartesian Coordinates");
-					coordinateLabel.setText("( X , Y )");
+					coordinatesButton.setLabel("Polar Coordinates");
+					coordinateLabel.setText("( r , ϴ )");
 					isCartasianCoordinates = false;
 				}
 				else {
-					coordinatesButton.setLabel("Polar Coordinates");
-					coordinateLabel.setText("( r , ϴ )");
+					coordinatesButton.setLabel("Cartesian Coordinates");
+					coordinateLabel.setText("( X , Y )");
 					isCartasianCoordinates = true;
 				}
 				plane.changeCoordinate();
@@ -141,11 +141,11 @@ public class Window extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartasianPlane) {
-					planeButton.setLabel("Cartesian Plane");
+					planeButton.setLabel("Polar Plane");
 					isCartasianPlane = false;
 				}
 				else {
-					planeButton.setLabel("Polar Plane");
+					planeButton.setLabel("Cartesian Plane");
 					isCartasianPlane = true;
 				}
 				plane.changePlane();
