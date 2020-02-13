@@ -102,7 +102,15 @@ public class Plane extends Canvas{
 			Coordinates p0 = coordinates.get(i-1);
 			Coordinates p1 = coordinates.get(i);
 			g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
-		}		
+		}
+		
+		//Draw panel with coordinates
+		g.setColor(new Color(0,0,0,100));
+		g.fillRect(this.getWidth()-200, 0, 200, 30);
+		//Draw coordinates point on panel
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.setColor(Color.BLACK);
+		g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-200, 20);
 	}
 
 	public void changeScale(int value) {

@@ -114,13 +114,6 @@ public class Window extends JFrame {
 		this.plane.setBackground(Color.WHITE);
 		this.plane.setBounds(0, canvasY, width, height-canvasY);
 		getContentPane().add(this.plane);
-		
-		Canvas listDisplay = new Canvas();
-		listDisplay.setBackground(new Color(0,0,0,40));
-		listDisplay.setBounds(this.getWidth()-100, canvasY, 100, 50);
-		listDisplay.setVisible(true);
-		getContentPane().add(listDisplay);
-		
 
 		/*
 		 * Add Actions to Components
