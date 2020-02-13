@@ -24,7 +24,8 @@ public class Plane extends Canvas{
 	int xOrigin, yOrigin;
 	int scale; 
 	Coordinates currentPoint; //last coordinate 
-	boolean isCartasianPlane; //to print cartasian or polar plane
+	boolean isCartesianPlane; //to print cartasian or polar plane
+	boolean isCartesianCoordinate;
 
 	public Plane() {
 		coordinates = new ArrayList<Coordinates>();
@@ -38,7 +39,8 @@ public class Plane extends Canvas{
 		scale = 1;
 		xGap = this.getWidth()/16; //wide of rectangles
 		yGap = this.getHeight()/16; //height of rectangles
-		isCartasianPlane = true;
+		isCartesianPlane = true;
+		isCartesianCoordinate = true;
 		xOrigin = this.getWidth()/2; //position in canvas of point x origin
 		yOrigin = this.getHeight()/2; //position in canvas of point y origin
 	}
@@ -50,9 +52,9 @@ public class Plane extends Canvas{
 		yGap = this.getHeight()/16; //height of rectangles
 		xOrigin = this.getWidth()/2; //position in canvas of point x origin
 		yOrigin = this.getHeight()/2; //position in canvas of point y origin
-		
+
 		//draw squares cartesian Plane
-		if(isCartasianPlane) {
+		if(isCartesianPlane) {
 			g.setColor(Color.LIGHT_GRAY);
 			//Its draw negative and positive axis separately to make sure they are align with axis X and Y
 			for(int i = 0; i < 8; i++) {
@@ -62,14 +64,14 @@ public class Plane extends Canvas{
 				g.drawLine(0, (yOrigin + i*yGap), this.getWidth(), (yOrigin + i*yGap)); //draw negative y lines
 			}
 		}
-		
+
 		//draw polar Plane
 		else {
 			for(int i = 1; i < 30; i++) {
-			g.drawOval(xOrigin - (i*xGap/2), yOrigin - (i*yGap/2), i*xGap, i*yGap);
+				g.drawOval(xOrigin - (i*xGap/2), yOrigin - (i*yGap/2), i*xGap, i*yGap);
 			}
 		}
-		
+
 		//draw X and Y AXIS
 		g.setColor(Color.BLACK);
 		g.drawLine(0, yOrigin, this.getWidth(), yOrigin); //X Axis
@@ -103,26 +105,35 @@ public class Plane extends Canvas{
 			Coordinates p1 = coordinates.get(i);
 			g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
 		}
-		
+
 		//Draw panel with coordinates
 		g.setColor(new Color(0,0,0,100));
 		g.fillRect(this.getWidth()-200, 0, 200, 30);
 		//Draw coordinates point on panel
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
-		g.setColor(Color.BLACK);
-		g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-200, 20);
+		g.setColor(Color.BLUE);
+		if(isCartesianCoordinate)
+			g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-200, 20);
+		else
+			g.drawString("( " + currentPoint.getR() + " , " + currentPoint.getO() + " )", this.getWidth()-200, 20);
+
 	}
 
 	public void changeScale(int value) {
 		this.scale = value;
 		this.repaint();
 	}
-	
+
 	public void changePlane() {
-		this.isCartasianPlane = !this.isCartasianPlane;
+		this.isCartesianPlane = !this.isCartesianPlane;
 		this.repaint();
 	}
 	
+	public void changeCoordinate() {
+		this.isCartesianCoordinate = !this.isCartesianCoordinate;
+		this.repaint();
+	}
+
 	public void addCartesianCoordinateDisplacement(int x, int y) {
 		coordinates.add(new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y));
 		this.repaint();
@@ -130,6 +141,12 @@ public class Plane extends Canvas{
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
 		coordinates.add(new PolarCoordinates(r,O));
+		this.repaint();
+	}
+	
+	public void clear() {
+		coordinates.clear();
+		coordinates.add(new CartesianCoordinates(0,0));
 		this.repaint();
 	}
 }

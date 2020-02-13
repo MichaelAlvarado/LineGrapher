@@ -96,13 +96,13 @@ public class Window extends JFrame {
 		slider.setBounds(655, 30, 120, 16);
 		panel.add(slider);
 
-		Button clear = new Button("Clear");
-		clear.setBounds(320, 27, 86, 23);
-		panel.add(clear);
+		Button clearButton = new Button("Clear");
+		clearButton.setBounds(320, 27, 86, 23);
+		panel.add(clearButton);
 
-		Button reset = new Button("Origin");
-		reset.setBounds(405, 27, 86, 23);
-		panel.add(reset);
+		Button originButton = new Button("Origin");
+		originButton.setBounds(405, 27, 86, 23);
+		panel.add(originButton);
 
 		MaskFormatter format = new MaskFormatter();
 		format.setMask("( ## , ## )");
@@ -134,6 +134,7 @@ public class Window extends JFrame {
 					coordinateLabel.setText("( r , ϴ )");
 					isCartasianCoordinates = true;
 				}
+				plane.changeCoordinate();
 			}
 		});
 		planeButton.addMouseListener(new MouseAdapter() {
@@ -153,7 +154,6 @@ public class Window extends JFrame {
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				System.out.println(slider.getValue());
 				plane.changeScale(slider.getValue());
 			}
 		});
@@ -163,14 +163,24 @@ public class Window extends JFrame {
 				if(formattedTextField.getValue() != null) {
 					int x = Integer.parseInt(formattedTextField.getValue().toString().substring(2,4));
 					int y = Integer.parseInt(formattedTextField.getValue().toString().substring(7,9));
-					System.out.println(x + " , " + y);
+					//System.out.println(x + " , " + y);
 					plane.addCartesianCoordinateDisplacement(x, y);
 				}
 			}
 			
 		});
-
-
+		clearButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				plane.clear();
+			}
+		});
+		originButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
