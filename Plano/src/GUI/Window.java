@@ -114,7 +114,7 @@ public class Window extends JFrame {
 
 		this.plane = new Plane();
 		this.plane.setBackground(Color.WHITE);
-		this.plane.setBounds(0, canvasY, width, height-canvasY);
+		this.plane.setBounds(0, canvasY, width, height-(canvasY*2));
 		getContentPane().add(this.plane);
 
 

@@ -37,12 +37,8 @@ public class Plane extends Canvas{
 		pointWidth = 10;
 		pointHeight = 10;
 		scale = 1;
-		xGap = this.getWidth()/16; //wide of rectangles
-		yGap = this.getHeight()/16; //height of rectangles
 		isCartesianPlane = true;
 		isCartesianCoordinate = true;
-		xOrigin = this.getWidth()/2; //position in canvas of point x origin
-		yOrigin = this.getHeight()/2; //position in canvas of point y origin
 	}
 
 	@Override 
@@ -68,7 +64,7 @@ public class Plane extends Canvas{
 		//draw polar Plane
 		else {
 			for(int i = 1; i < 30; i++) {
-				g.drawOval(xOrigin - (i*xGap/2), yOrigin - (i*yGap/2), i*xGap, i*yGap);
+				g.drawOval(xOrigin - (i*xGap), yOrigin - (i*yGap), 2*i*xGap, 2*i*yGap);
 			}
 		}
 
