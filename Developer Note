@@ -5,15 +5,13 @@
 	-Anel Martinez
 	
 *To be done:
-	-Put point in half a scale (cant do because they are integers)
-	-Methods to change coordinates
-	-Display coordinates in list
-	-Input coordinates (make sure that coordinates are displacement of the currentPoint)
-	-Clear
-	-Reset
+	-Origin button
+	-Make a class that manage the list of coordinates
+	-Develop JUnit Test Case
+	-Improve Efficiency in coordinates input
 	
 *InProgress:
-	-List of coordinates panel display(Michael/ Class: Window)
+	-GUI rearrangement (Michael/ Class: Window)
 	
 *Progress: 
 	-Implemented Conversion Methods
