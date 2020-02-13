@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import Coordinates.CartesianCoordinates;
 import Coordinates.Coordinates;
+import Coordinates.PolarCoordinates;
 
 /**
  * 
@@ -113,5 +114,14 @@ public class Plane extends Canvas{
 		this.isCartasianPlane = !this.isCartasianPlane;
 		this.repaint();
 	}
+	
+	public void addCartesianCoordinateDisplacement(int x, int y) {
+		coordinates.add(new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y));
+		this.repaint();
+	}
 
+	public void addPolarCoordinateDisplacement(int r, int O) {
+		coordinates.add(new PolarCoordinates(r,O));
+		this.repaint();
+	}
 }

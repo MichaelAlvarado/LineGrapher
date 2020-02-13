@@ -114,6 +114,13 @@ public class Window extends JFrame {
 		this.plane.setBackground(Color.WHITE);
 		this.plane.setBounds(0, canvasY, width, height-canvasY);
 		getContentPane().add(this.plane);
+		
+		Canvas listDisplay = new Canvas();
+		listDisplay.setBackground(new Color(0,0,0,40));
+		listDisplay.setBounds(this.getWidth()-100, canvasY, 100, 50);
+		listDisplay.setVisible(true);
+		getContentPane().add(listDisplay);
+		
 
 		/*
 		 * Add Actions to Components
@@ -159,7 +166,12 @@ public class Window extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == (KeyEvent.VK_ENTER)){
-					System.out.println(formattedTextField.getValue());
+					if(formattedTextField.getValue() != null) {
+					int x = Integer.parseInt(formattedTextField.getValue().toString().substring(2,5));
+					int y = Integer.parseInt(formattedTextField.getValue().toString().substring(8,11));
+					System.out.println(x + " , " + y);
+					plane.addCartesianCoordinateDisplacement(x, y);
+					}
 				}
 			}
 
