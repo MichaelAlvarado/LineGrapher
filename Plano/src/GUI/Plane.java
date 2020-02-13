@@ -146,17 +146,29 @@ public class Plane extends Canvas{
 		this.repaint();
 	}
 
+	public void clearAll() {
+		//clear All Lines
+		lines.clear();
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(new CartesianCoordinates(0,0));
+		lines.add(line);
+		currentLine = line;
+		this.repaint();
+	}
+	 
 	public void clear() {
+		//clear only the current Line
 		currentLine.clear();
 		currentLine.add(new CartesianCoordinates(0,0));
 		this.repaint();
 	}
 
 	public void newLine() {
-		ArrayList<Coordinates> coordinates = new ArrayList<Coordinates>();
-		coordinates.add(new CartesianCoordinates(0,0));
-		lines.add(coordinates);
-		currentLine = coordinates; 
+		//Create a new Line to trace
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(new CartesianCoordinates(0,0));
+		lines.add(line);
+		currentLine = line; 
 		this.repaint();
 	}
 }

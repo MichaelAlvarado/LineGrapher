@@ -178,7 +178,7 @@ public class Window extends JFrame {
 		clearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				plane.clear();
+				plane.clearAll();
 			}
 		});
 		originButton.addMouseListener(new MouseAdapter() {
