@@ -184,7 +184,7 @@ public class Window extends JFrame {
 		originButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				plane.newLine();
 			}
 		});
 

@@ -18,22 +18,25 @@ import Coordinates.PolarCoordinates;
  */
 public class Plane extends Canvas{
 
-	ArrayList<Coordinates> coordinates; 
+	ArrayList<ArrayList<Coordinates>> lines; //Where all the lines are
+	Coordinates currentPoint; //last coordinate 
+	ArrayList<Coordinates> currentLine; //last line 
 	int pointWidth, pointHeight; //points of coordinates
 	int xGap, yGap; //this is the distance of line to line
-	int xOrigin, yOrigin;
+	int xOrigin, yOrigin; //Pixel position on canvas origin
 	int scale; 
-	Coordinates currentPoint; //last coordinate 
-	boolean isCartesianPlane; //to print cartasian or polar plane
+	boolean isCartesianPlane;
 	boolean isCartesianCoordinate;
 
 	public Plane() {
-		coordinates = new ArrayList<Coordinates>();
-		coordinates.add(new CartesianCoordinates(0,0));
-		coordinates.add(new CartesianCoordinates(1,3));
-		coordinates.add(new CartesianCoordinates(-2,4));
-		coordinates.add(new CartesianCoordinates(-2,-5));
-		coordinates.add(new CartesianCoordinates(3,-2));
+		currentLine = new ArrayList<Coordinates>();
+		currentLine.add(new CartesianCoordinates(0,0));
+		currentLine.add(new CartesianCoordinates(1,3));
+		currentLine.add(new CartesianCoordinates(-2,4));
+		currentLine.add(new CartesianCoordinates(-2,-5));
+		currentLine.add(new CartesianCoordinates(3,-2));
+		lines = new ArrayList<ArrayList<Coordinates>>();
+		lines.add(currentLine);
 		pointWidth = 10;
 		pointHeight = 10;
 		scale = 1;
@@ -53,7 +56,7 @@ public class Plane extends Canvas{
 		if(isCartesianPlane) {
 			g.setColor(Color.LIGHT_GRAY);
 			//Its draw negative and positive axis separately to make sure they are align with axis X and Y
-			for(int i = 0; i < 8; i++) {
+			for(int i = 1; i < 8; i++) {
 				g.drawLine((xOrigin + i*xGap), 0, (xOrigin + i*xGap), this.getHeight()); //draw positive x lines
 				g.drawLine((xOrigin - i*xGap), 0, (xOrigin - i*xGap), this.getHeight()); //draw negative x lines
 				g.drawLine(0, (yOrigin - i*yGap), this.getWidth(), (yOrigin - i*yGap)); //draw positive y lines
@@ -85,23 +88,24 @@ public class Plane extends Canvas{
 
 		//Draw Points
 		g.setColor(Color.red);
-		for(Coordinates p: coordinates) {
+		for(Coordinates p: currentLine) {
 			g.fillOval(((int)(p.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin), ((int)(-p.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 		}
 
 		//Draw current Point in diferent Color
-		currentPoint = coordinates.get(coordinates.size()-1); //Testing Purposes (this will be define eveytime there is an input
+		currentPoint = currentLine.get(currentLine.size()-1);
 		g.setColor(Color.BLUE);
 		g.fillOval(((int)(currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((int)(-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 
 		//Draw lines from point
 		g.setColor(Color.ORANGE);
-		for(int i = 1; i < coordinates.size(); i++) {
-			Coordinates p0 = coordinates.get(i-1);
-			Coordinates p1 = coordinates.get(i);
-			g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
+		for(ArrayList<Coordinates> coordinates: lines) {
+			for(int i = 1; i < coordinates.size(); i++) {
+				Coordinates p0 = coordinates.get(i-1);
+				Coordinates p1 = coordinates.get(i);
+				g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
+			}
 		}
-
 		//Draw panel with coordinates
 		g.setColor(new Color(0,0,0,100));
 		g.fillRect(this.getWidth()-200, 0, 200, 30);
@@ -124,25 +128,35 @@ public class Plane extends Canvas{
 		this.isCartesianPlane = !this.isCartesianPlane;
 		this.repaint();
 	}
-	
+
 	public void changeCoordinate() {
 		this.isCartesianCoordinate = !this.isCartesianCoordinate;
 		this.repaint();
 	}
 
 	public void addCartesianCoordinateDisplacement(int x, int y) {
-		coordinates.add(new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y));
+		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
+		currentLine.add(coordinate);
 		this.repaint();
 	}
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
-		coordinates.add(new PolarCoordinates(r,O));
+		Coordinates coordinate = new PolarCoordinates(r,O);//This must be change to displacement
+		currentLine.add(new PolarCoordinates(r,O));
 		this.repaint();
 	}
-	
+
 	public void clear() {
-		coordinates.clear();
+		currentLine.clear();
+		currentLine.add(new CartesianCoordinates(0,0));
+		this.repaint();
+	}
+
+	public void newLine() {
+		ArrayList<Coordinates> coordinates = new ArrayList<Coordinates>();
 		coordinates.add(new CartesianCoordinates(0,0));
+		lines.add(coordinates);
+		currentLine = coordinates; 
 		this.repaint();
 	}
 }
