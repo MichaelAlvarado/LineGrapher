@@ -18,6 +18,10 @@ public class printTesterClass {
 		System.out.println("The r magnitude in Polar is: " + test2.getR());
 		System.out.println("The angle in Polar is: " + test2.getO());
 		
+		int a = 5;
+		double b = 5.0/10.0;
+		
+		System.out.println(b);
 	}
 
 }

@@ -18,6 +18,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 
 import javax.swing.ButtonGroup;
@@ -114,15 +116,7 @@ public class Window extends JFrame {
 		this.plane.setBackground(Color.WHITE);
 		this.plane.setBounds(0, canvasY, width, height-canvasY);
 		getContentPane().add(this.plane);
-		
-//		JPanel panelList = new JPanel();
-//		panelList.setBounds(this.getWidth()-200, canvasY, 200, 30);
-//		getContentPane().add(panelList);
-//		
-//		Button panelListButton = new Button(">");
-//		panelListButton.setBounds(this.getWidth()-30, canvasY, 30, 30);
-//		panel.add(panelListButton);
-//		panelList.add(panelListButton);
+
 
 		/*
 		 * Add Actions to Components
@@ -163,27 +157,17 @@ public class Window extends JFrame {
 				plane.changeScale(slider.getValue());
 			}
 		});
-		formattedTextField.addKeyListener(new KeyListener() {
-
+		formattedTextField.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode() == (KeyEvent.VK_ENTER)){
-					if(formattedTextField.getValue() != null) {
-					int x = Integer.parseInt(formattedTextField.getValue().toString().substring(2,5));
-					int y = Integer.parseInt(formattedTextField.getValue().toString().substring(8,11));
+			public void propertyChange(PropertyChangeEvent arg0) {
+				if(formattedTextField.getValue() != null) {
+					int x = Integer.parseInt(formattedTextField.getValue().toString().substring(2,4));
+					int y = Integer.parseInt(formattedTextField.getValue().toString().substring(7,9));
 					System.out.println(x + " , " + y);
 					plane.addCartesianCoordinateDisplacement(x, y);
-					}
 				}
 			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-			}
+			
 		});
 
 
