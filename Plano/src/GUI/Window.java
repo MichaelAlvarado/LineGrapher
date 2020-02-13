@@ -82,7 +82,7 @@ public class Window extends JFrame {
 
 		Label coordinateLabel = new Label("( X , Y )");
 		coordinateLabel.setAlignment(Label.CENTER);
-		coordinateLabel.setBounds(409, 3, 85, 21);
+		coordinateLabel.setBounds(420, 3, 85, 21);
 		panel.add(coordinateLabel);
 
 		Label scaleLabel = new Label("Scale");
@@ -107,13 +107,22 @@ public class Window extends JFrame {
 		format.setPlaceholderCharacter('_');
 		JFormattedTextField formattedTextField = new JFormattedTextField(format);
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setBounds(409, 46, 85, 19);
+		formattedTextField.setBounds(420, 27, 85, 19);
 		panel.add(formattedTextField);
 
 		this.plane = new Plane();
 		this.plane.setBackground(Color.WHITE);
 		this.plane.setBounds(0, canvasY, width, height-canvasY);
 		getContentPane().add(this.plane);
+		
+//		JPanel panelList = new JPanel();
+//		panelList.setBounds(this.getWidth()-200, canvasY, 200, 30);
+//		getContentPane().add(panelList);
+//		
+//		Button panelListButton = new Button(">");
+//		panelListButton.setBounds(this.getWidth()-30, canvasY, 30, 30);
+//		panel.add(panelListButton);
+//		panelList.add(panelListButton);
 
 		/*
 		 * Add Actions to Components
