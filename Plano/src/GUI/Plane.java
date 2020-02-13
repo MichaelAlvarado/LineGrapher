@@ -97,7 +97,7 @@ public class Plane extends Canvas{
 		g.fillOval(((int)(currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((int)(-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 
 		//Draw lines from point
-		g.setColor(Color.GREEN);
+		g.setColor(Color.ORANGE);
 		for(int i = 1; i < coordinates.size(); i++) {
 			Coordinates p0 = coordinates.get(i-1);
 			Coordinates p1 = coordinates.get(i);

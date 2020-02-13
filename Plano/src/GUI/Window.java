@@ -71,43 +71,43 @@ public class Window extends JFrame {
 		panel.setLayout(null);
 
 		Button planeButton = new Button("Cartesian Plane");
-		planeButton.setBounds(12, 25, 190, 25);
+		planeButton.setBounds(520, 25, 130, 25);
 		panel.add(planeButton);
 		isCartasianPlane = true;
 
-		Button coordinates = new Button("Cartesian Coordinates");
-		coordinates.setBounds(210, 25, 190, 25);
-		panel.add(coordinates);
+		Button coordinatesButton = new Button("Cartesian Coordinates");
+		coordinatesButton.setBounds(12, 25, 190, 25);//(210, 25, 190, 25);
+		panel.add(coordinatesButton);
 		isCartasianCoordinates = true;
 
 		Label coordinateLabel = new Label("( X , Y )");
 		coordinateLabel.setAlignment(Label.CENTER);
-		coordinateLabel.setBounds(420, 3, 85, 21);
+		coordinateLabel.setBounds(210, 3, 85, 21);
 		panel.add(coordinateLabel);
 
 		Label scaleLabel = new Label("Scale");
 		scaleLabel.setAlignment(Label.CENTER);
-		scaleLabel.setBounds(850, 3, 68, 21);
+		scaleLabel.setBounds(650, 5, 120, 21);
 		panel.add(scaleLabel);
 
 		JSlider slider = new JSlider(1,10,1);
-		slider.setBounds(789, 34, 200, 16);
+		slider.setBounds(655, 30, 120, 16);
 		panel.add(slider);
 
 		Button clear = new Button("Clear");
-		clear.setBounds(539, 27, 86, 23);
+		clear.setBounds(320, 27, 86, 23);
 		panel.add(clear);
 
-		Button reset = new Button("Reset");
-		reset.setBounds(649, 27, 86, 23);
+		Button reset = new Button("Origin");
+		reset.setBounds(405, 27, 86, 23);
 		panel.add(reset);
 
 		MaskFormatter format = new MaskFormatter();
-		format.setMask("( ### , ### )");
+		format.setMask("( ## , ## )");
 		format.setPlaceholderCharacter('_');
 		JFormattedTextField formattedTextField = new JFormattedTextField(format);
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setBounds(420, 27, 85, 19);
+		formattedTextField.setBounds(210, 27, 85, 19);
 		panel.add(formattedTextField);
 
 		this.plane = new Plane();
@@ -127,16 +127,16 @@ public class Window extends JFrame {
 		/*
 		 * Add Actions to Components
 		 */
-		coordinates.addMouseListener(new MouseAdapter() {
+		coordinatesButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartasianCoordinates) {
-					coordinates.setLabel("Cartesian Coordinates");
+					coordinatesButton.setLabel("Cartesian Coordinates");
 					coordinateLabel.setText("( X , Y )");
 					isCartasianCoordinates = false;
 				}
 				else {
-					coordinates.setLabel("Polar Coordinates");
+					coordinatesButton.setLabel("Polar Coordinates");
 					coordinateLabel.setText("( r , ϴ )");
 					isCartasianCoordinates = true;
 				}

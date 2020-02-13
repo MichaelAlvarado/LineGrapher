@@ -12,7 +12,7 @@ public class launch {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window frame = new Window(1200,1200);
+					Window frame = new Window(800,600);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
