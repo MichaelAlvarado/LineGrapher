@@ -11,3 +11,9 @@
 	-Input coordinates (make sure that coordinates are displacement of the currentPoint)
 	-Clear
 	-Reset
+	
+*Progress: 
+	-Implemented Conversion Methods
+		-Problem with PolarCoordinates methods.
+	-Started working on JUNIT Test cases but it is not yet fully implemented.
+		-Invocation Target Exception is thrown.

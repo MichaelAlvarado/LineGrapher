@@ -2,10 +2,10 @@ package Coordinates;
 
 public class Coordinates {
 	
-	int x, y; //Cartasian Coordinates
-	int r, O; //Polar Coordinates
+	double x, y; //Cartesian Coordinates
+	double r, O; //Polar Coordinates
 
-	public Coordinates (int x, int y, int r, int O){
+	public Coordinates (double x, double y, double r, double O){
 		this.x = x;
 		this.y = y;
 		this.r = r;
@@ -13,7 +13,7 @@ public class Coordinates {
 	}
 
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -21,7 +21,7 @@ public class Coordinates {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
@@ -29,7 +29,7 @@ public class Coordinates {
 		this.y = y;
 	}
 
-	public int getR() {
+	public double getR() {
 		return r;
 	}
 
@@ -37,7 +37,7 @@ public class Coordinates {
 		this.r = r;
 	}
 
-	public int getO() {
+	public double getO() {
 		return O;
 	}
 

@@ -1,20 +1,21 @@
+
 package Coordinates;
 
 public class PolarCoordinates extends Coordinates{
 	
-	public PolarCoordinates(int r, int O) {
+	public PolarCoordinates(double r, double O) {
 		super(changePolarToX(r,O), changePolarToY(r,O), r, O);
 	}
 
 	
-	private static int changePolarToY(int r, int o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static double changePolarToY(double r, double O) {
+		double y = r*Math.sin(O);
+		return Math.round(y * 100.0) / 100.0;
 	}
 
-	private static int changePolarToX(int r, int o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static double changePolarToX(double r, double O) {
+		double x = r*Math.cos(O);
+		return Math.round(x * 100.0) / 100.0;
 	}
 	
 }

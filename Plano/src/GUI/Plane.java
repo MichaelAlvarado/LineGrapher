@@ -87,20 +87,20 @@ public class Plane extends Canvas{
 		//Draw Points
 		g.setColor(Color.red);
 		for(Coordinates p: coordinates) {
-			g.fillOval(((p.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin), ((-p.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
+			g.fillOval(((int)(p.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin), ((int)(-p.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 		}
 
 		//Draw current Point in diferent Color
 		currentPoint = coordinates.get(coordinates.size()-1); //Testing Purposes (this will be define eveytime there is an input
 		g.setColor(Color.BLUE);
-		g.fillOval(((currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
+		g.fillOval(((int)(currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((int)(-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
 
 		//Draw lines from point
 		g.setColor(Color.GREEN);
 		for(int i = 1; i < coordinates.size(); i++) {
 			Coordinates p0 = coordinates.get(i-1);
 			Coordinates p1 = coordinates.get(i);
-			g.drawLine(((p0.getX()/this.scale*xGap)+xOrigin), ((-p0.getY()/this.scale*yGap)+yOrigin), ((p1.getX()/this.scale*xGap)+xOrigin), ((-p1.getY()/this.scale*yGap)+yOrigin));
+			g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
 		}		
 	}
 
