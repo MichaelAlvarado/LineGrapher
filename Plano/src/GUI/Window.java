@@ -95,6 +95,11 @@ public class Window extends JFrame {
 		JSlider slider = new JSlider(1,10,1);
 		slider.setBounds(655, 30, 120, 16);
 		panel.add(slider);
+		
+		Button enterButton = new Button("Enter");
+		enterButton.setBounds(210, 50, 85, 19);
+		panel.add(enterButton);
+		
 
 		Button clearButton = new Button("Clear");
 		clearButton.setBounds(320, 27, 86, 23);
@@ -160,14 +165,15 @@ public class Window extends JFrame {
 		formattedTextField.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				if(formattedTextField.getValue() != null) {
-					int x = Integer.parseInt(formattedTextField.getValue().toString().substring(2,4));
-					int y = Integer.parseInt(formattedTextField.getValue().toString().substring(7,9));
-					//System.out.println(x + " , " + y);
-					plane.addCartesianCoordinateDisplacement(x, y);
-				}
+				enterCoordinate(formattedTextField.getValue());
 			}
 			
+		});
+		enterButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				enterCoordinate(formattedTextField.getValue());
+			}
 		});
 		clearButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -184,6 +190,14 @@ public class Window extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
+	}
+	
+	private void enterCoordinate(Object value) {
+		if(value != null) {
+			int x = Integer.parseInt(value.toString().substring(2,4));
+			int y = Integer.parseInt(value.toString().substring(7,9));
+			plane.addCartesianCoordinateDisplacement(x, y);
+		}
 	}
 
 
