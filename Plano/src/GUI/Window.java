@@ -13,6 +13,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -46,9 +49,7 @@ import java.awt.Button;
  */
 
 public class Window extends JFrame {
-	private JTextField firstParameter; //this is either X or Magnitude
-	private JTextField secondParameter; //this is either Y or Angle
-	private JSlider slider;
+
 	private Plane plane;
 	private boolean isCartasianCoordinates, isCartasianPlane;
 
@@ -69,29 +70,15 @@ public class Window extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		Button planeButton = new Button("Cartasian Plane");
+		Button planeButton = new Button("Cartesian Plane");
 		planeButton.setBounds(12, 25, 190, 25);
 		panel.add(planeButton);
 		isCartasianPlane = true;
-		
-		Button coordinates = new Button("Cartasian Coordinates");
+
+		Button coordinates = new Button("Cartesian Coordinates");
 		coordinates.setBounds(210, 25, 190, 25);
 		panel.add(coordinates);
 		isCartasianCoordinates = true;
-
-		firstParameter = new JTextField();
-		firstParameter.setHorizontalAlignment(SwingConstants.CENTER);
-		firstParameter.setText("0");
-		firstParameter.setBounds(409, 28, 42, 19);
-		panel.add(firstParameter);
-		firstParameter.setColumns(10);
-
-		secondParameter = new JTextField();
-		secondParameter.setHorizontalAlignment(SwingConstants.CENTER);
-		secondParameter.setText("0");
-		secondParameter.setBounds(452, 28, 42, 19);
-		panel.add(secondParameter);
-		secondParameter.setColumns(10);
 
 		Label coordinateLabel = new Label("( X , Y )");
 		coordinateLabel.setAlignment(Label.CENTER);
@@ -103,9 +90,9 @@ public class Window extends JFrame {
 		scaleLabel.setBounds(850, 3, 68, 21);
 		panel.add(scaleLabel);
 
-		this.slider = new JSlider(1,10,1);
-		this.slider.setBounds(789, 34, 200, 16);
-		panel.add(this.slider);
+		JSlider slider = new JSlider(1,10,1);
+		slider.setBounds(789, 34, 200, 16);
+		panel.add(slider);
 
 		Button clear = new Button("Clear");
 		clear.setBounds(539, 27, 86, 23);
@@ -135,7 +122,7 @@ public class Window extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartasianCoordinates) {
-					coordinates.setLabel("Cartasian Coordinates");
+					coordinates.setLabel("Cartesian Coordinates");
 					coordinateLabel.setText("( X , Y )");
 					isCartasianCoordinates = false;
 				}
@@ -150,7 +137,7 @@ public class Window extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartasianPlane) {
-					planeButton.setLabel("Cartasian Plane");
+					planeButton.setLabel("Cartesian Plane");
 					isCartasianPlane = false;
 				}
 				else {
@@ -167,6 +154,25 @@ public class Window extends JFrame {
 				plane.changeScale(slider.getValue());
 			}
 		});
+		formattedTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == (KeyEvent.VK_ENTER)){
+					System.out.println(formattedTextField.getValue());
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+			}
+		});
+
+
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
