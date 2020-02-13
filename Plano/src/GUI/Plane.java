@@ -63,7 +63,7 @@ public class Plane extends Canvas{
 
 		//draw polar Plane
 		else {
-			for(int i = 1; i < 30; i++) {
+			for(int i = 1; i < 8; i++) {
 				g.drawOval(xOrigin - (i*xGap), yOrigin - (i*yGap), 2*i*xGap, 2*i*yGap);
 			}
 		}
