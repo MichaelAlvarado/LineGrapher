@@ -53,7 +53,8 @@ import java.awt.Button;
 public class Window extends JFrame {
 
 	private Plane plane;
-	private boolean isCartasianCoordinates, isCartasianPlane;
+	private boolean isCartesianCoordinates, isCartesianPlane;
+	char xSign, ySign;
 
 	/**
 	 * Create the frame.
@@ -75,14 +76,16 @@ public class Window extends JFrame {
 		Button planeButton = new Button("Cartesian Plane");
 		planeButton.setBounds(520, 25, 130, 25);
 		panel.add(planeButton);
-		isCartasianPlane = true;
+		isCartesianPlane = true;
 
 		Button coordinatesButton = new Button("Cartesian Coordinates");
 		coordinatesButton.setBounds(12, 25, 190, 25);//(210, 25, 190, 25);
 		panel.add(coordinatesButton);
-		isCartasianCoordinates = true;
+		isCartesianCoordinates = true;
 
-		Label coordinateLabel = new Label("( X , Y )");
+		xSign = '+';
+		ySign = '+';
+		Label coordinateLabel = new Label("( " + xSign + "X , " + ySign + "Y )");
 		coordinateLabel.setAlignment(Label.CENTER);
 		coordinateLabel.setBounds(210, 3, 85, 21);
 		panel.add(coordinateLabel);
@@ -95,17 +98,17 @@ public class Window extends JFrame {
 		JSlider slider = new JSlider(1,10,1);
 		slider.setBounds(655, 30, 120, 16);
 		panel.add(slider);
-		
+
 		Button enterButton = new Button("Enter");
 		enterButton.setBounds(210, 50, 85, 19);
 		panel.add(enterButton);
-		
+
 
 		Button clearButton = new Button("Clear");
 		clearButton.setBounds(320, 27, 86, 23);
 		panel.add(clearButton);
 
-		Button originButton = new Button("Origin");
+		Button originButton = new Button("New Trace");
 		originButton.setBounds(405, 27, 86, 23);
 		panel.add(originButton);
 
@@ -129,58 +132,122 @@ public class Window extends JFrame {
 		coordinatesButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(isCartasianCoordinates) {
+				if(isCartesianCoordinates) {
 					coordinatesButton.setLabel("Polar Coordinates");
-					coordinateLabel.setText("( r , ϴ )");
-					isCartasianCoordinates = false;
+					coordinateLabel.setText("( r , " + ySign + "θ )");
+					isCartesianCoordinates = false;
 				}
 				else {
 					coordinatesButton.setLabel("Cartesian Coordinates");
-					coordinateLabel.setText("( X , Y )");
-					isCartasianCoordinates = true;
+					coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
+					isCartesianCoordinates = true;
 				}
 				plane.changeCoordinate();
 			}
 		});
+
 		planeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(isCartasianPlane) {
+				if(isCartesianPlane) {
 					planeButton.setLabel("Polar Plane");
-					isCartasianPlane = false;
+					isCartesianPlane = false;
 				}
 				else {
 					planeButton.setLabel("Cartesian Plane");
-					isCartasianPlane = true;
+					isCartesianPlane = true;
 				}
 				plane.changePlane();
 			}
 		});	
+
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				plane.changeScale(slider.getValue());
 			}
 		});
+
+		formattedTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(isCartesianCoordinates) {
+					if(formattedTextField.getCaretPosition() > 1 && formattedTextField.getCaretPosition() < 5) {
+						if(arg0.getKeyChar() == '-') {
+							xSign = '-';
+						}
+						else if (arg0.getKeyChar() == '+') {
+							xSign = '+';
+						}
+					}
+					if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+						if(arg0.getKeyChar() == '-') {
+							ySign = '-';
+						}
+						else if (arg0.getKeyChar() == '+') {
+							ySign = '+';
+
+						}
+					}
+					coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
+				}
+				else {
+					//Only angle can be negative
+					if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+						if(arg0.getKeyChar() == '-') {
+							ySign = '-';
+						}
+						else if (arg0.getKeyChar() == '+') {
+							ySign = '+';
+
+						}
+					}
+					coordinateLabel.setText("( r , " + ySign + "θ )");				
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
 		formattedTextField.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				enterCoordinate(formattedTextField.getValue());
+				if(isCartesianCoordinates)
+					enterCartesianCoordinate(formattedTextField.getValue());
+				else
+					enterPolarCoordinate(formattedTextField.getValue());
 			}
-			
+
 		});
+
 		enterButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				enterCoordinate(formattedTextField.getValue());
+				if(isCartesianCoordinates)
+					enterCartesianCoordinate(formattedTextField.getValue());
+				else
+					enterPolarCoordinate(formattedTextField.getValue());
 			}
 		});
+
 		clearButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				plane.clearAll();
 			}
 		});
+
 		originButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -188,15 +255,24 @@ public class Window extends JFrame {
 			}
 		});
 
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
 	}
-	
-	private void enterCoordinate(Object value) {
+
+	private void enterCartesianCoordinate(Object value) {
 		if(value != null) {
-			int x = Integer.parseInt(value.toString().substring(2,4));
-			int y = Integer.parseInt(value.toString().substring(7,9));
+			int x = Integer.parseInt(xSign+value.toString().substring(2,4));
+			int y = Integer.parseInt(ySign+value.toString().substring(7,9));
 			plane.addCartesianCoordinateDisplacement(x, y);
+		}
+	}
+	
+	private void enterPolarCoordinate(Object value) {
+		if(value != null) {
+			int r = Integer.parseInt(value.toString().substring(2,4));
+			int O = Integer.parseInt(ySign+value.toString().substring(7,9));
+			plane.addPolarCoordinateDisplacement(r, O);
 		}
 	}
 
