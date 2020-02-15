@@ -36,7 +36,10 @@ import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.MaskFormatter;
+
+
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
@@ -62,7 +65,7 @@ public class Window extends JFrame {
 	 */
 	public Window(int width, int height) throws ParseException {
 		int canvasY = 77; //this is the position in Y where the division is between plane and menu
-
+	
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 
@@ -114,7 +117,7 @@ public class Window extends JFrame {
 
 		MaskFormatter format = new MaskFormatter();
 		format.setMask("( ## , ## )");
-		format.setPlaceholderCharacter('_');
+		format.setPlaceholderCharacter('0');
 		JFormattedTextField formattedTextField = new JFormattedTextField(format);
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField.setBounds(210, 27, 85, 19);
