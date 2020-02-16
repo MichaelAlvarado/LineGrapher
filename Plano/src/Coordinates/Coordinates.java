@@ -19,6 +19,8 @@ public class Coordinates {
 
 	public void setX(int x) {
 		this.x = x;
+		this.r = CartesianCoordinates.changeCartesianToMagnitud(x, y);
+		this.O = CartesianCoordinates.changeCartesianToAngle(x, y);
 	}
 
 	public double getY() {
@@ -27,6 +29,8 @@ public class Coordinates {
 
 	public void setY(int y) {
 		this.y = y;
+		this.r = CartesianCoordinates.changeCartesianToMagnitud(x, y);
+		this.O = CartesianCoordinates.changeCartesianToAngle(x, y);
 	}
 
 	public double getR() {
@@ -35,6 +39,8 @@ public class Coordinates {
 
 	public void setR(int r) {
 		this.r = r;
+		this.x = PolarCoordinates.changePolarToX(r, O);
+		this.y = PolarCoordinates.changePolarToY(r, O);
 	}
 
 	public double getO() {
@@ -42,7 +48,9 @@ public class Coordinates {
 	}
 
 	public void setO(int o) {
-		O = o;
+		this.O = o;
+		this.x = PolarCoordinates.changePolarToX(r, O);
+		this.y = PolarCoordinates.changePolarToY(r, O);
 	}
 	
 }

@@ -66,8 +66,17 @@ public class Plane extends Canvas{
 
 		//draw polar Plane
 		else {
+			g.setColor(Color.LIGHT_GRAY);
+			//Draw the magnitudes circles
 			for(int i = 1; i < 8; i++) {
 				g.drawOval(xOrigin - (i*xGap), yOrigin - (i*yGap), 2*i*xGap, 2*i*yGap);
+			}
+			//Draw the angle lines
+			Coordinates angle = new PolarCoordinates(7,30);
+			for(int i = 1; i <= 12; i++) {
+				angle.setO(30*i);
+				g.drawLine(xOrigin, yOrigin, printCoordinatesX(angle), printCoordinatesY(angle));
+				g.drawString(String.valueOf(angle.getO()), printCoordinatesX(angle), printCoordinatesY(angle));
 			}
 		}
 
@@ -89,13 +98,13 @@ public class Plane extends Canvas{
 		//Draw Points
 		g.setColor(Color.red);
 		for(Coordinates p: currentLine) {
-			g.fillOval(((int)(p.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin), ((int)(-p.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
+			g.fillOval((printCoordinatesX(p)-(pointWidth/2)),(printCoordinatesY(p)-(pointHeight/2)), pointWidth, pointHeight);
 		}
 
 		//Draw current Point in diferent Color
 		currentPoint = currentLine.get(currentLine.size()-1);
 		g.setColor(Color.BLUE);
-		g.fillOval(((int)(currentPoint.getX()/this.scale*xGap)-(pointWidth/2)+xOrigin),((int)(-currentPoint.getY()/this.scale*yGap)-(pointHeight/2)+yOrigin), pointWidth, pointHeight);
+		g.fillOval((printCoordinatesX(currentPoint)-(pointWidth/2)),(printCoordinatesY(currentPoint)-(pointHeight/2)), pointWidth, pointHeight);
 
 		//Draw lines from point
 		g.setColor(Color.ORANGE);
@@ -103,7 +112,7 @@ public class Plane extends Canvas{
 			for(int i = 1; i < coordinates.size(); i++) {
 				Coordinates p0 = coordinates.get(i-1);
 				Coordinates p1 = coordinates.get(i);
-				g.drawLine(((int)(p0.getX()/this.scale*xGap)+xOrigin), ((int)(-p0.getY()/this.scale*yGap)+yOrigin), ((int)(p1.getX()/this.scale*xGap)+xOrigin), ((int)(-p1.getY()/this.scale*yGap)+yOrigin));
+				g.drawLine(printCoordinatesX(p0), printCoordinatesY(p0), printCoordinatesX(p1), printCoordinatesY(p1));
 			}
 		}
 		//Draw panel with coordinates
@@ -155,7 +164,7 @@ public class Plane extends Canvas{
 		currentLine = line;
 		this.repaint();
 	}
-	 
+
 	public void clear() {
 		//clear only the current Line
 		currentLine.clear();
@@ -171,4 +180,13 @@ public class Plane extends Canvas{
 		currentLine = line; 
 		this.repaint();
 	}
+
+	private int printCoordinatesX(Coordinates coor) {
+		return ((int)(coor.getX()/this.scale*xGap)+xOrigin);
+	}
+
+	private int printCoordinatesY(Coordinates coor) {
+		return ((int)(-coor.getY()/this.scale*yGap)+yOrigin);
+	}
+
 }
