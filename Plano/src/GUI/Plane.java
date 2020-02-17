@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 import Coordinates.CartesianCoordinates;
 import Coordinates.Coordinates;
@@ -55,7 +56,7 @@ public class Plane extends Canvas{
 		//draw squares cartesian Plane
 		if(isCartesianPlane) {
 			g.setColor(Color.LIGHT_GRAY);
-			//Its draw negative and positive axis separately to make sure they are align with axis X and Y
+			//It draws negative and positive axis separately to make sure they are aligned with axis X and Y
 			for(int i = 1; i < 8; i++) {
 				g.drawLine((xOrigin + i*xGap), 0, (xOrigin + i*xGap), this.getHeight()); //draw positive x lines
 				g.drawLine((xOrigin - i*xGap), 0, (xOrigin - i*xGap), this.getHeight()); //draw negative x lines
@@ -145,14 +146,27 @@ public class Plane extends Canvas{
 
 	public void addCartesianCoordinateDisplacement(int x, int y) {
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
-		currentLine.add(coordinate);
-		this.repaint();
+		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
+		    JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+		}
+		else {
+			currentLine.add(coordinate);
+			this.repaint();
+		}
+		
 	}
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
-		Coordinates coordinate = new PolarCoordinates(r,O);//This must be change to displacement
-		currentLine.add(new PolarCoordinates(r,O));
-		this.repaint();
+		double x = (r*(java.lang.Math.cos(Double.valueOf(Math.toRadians(O)))));
+		double y = (r*(java.lang.Math.sin(Double.valueOf(Math.toRadians(O)))));
+		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
+		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
+		    JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+		}
+		else {
+			currentLine.add(coordinate);
+			this.repaint();
+		}
 	}
 
 	public void clearAll() {
