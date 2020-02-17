@@ -5,21 +5,21 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import Coordinates.CartesianCoordinates;
+import Coordinates.PolarCoordinates;
 
-class CartesianCoordinatesTest {
+class PolarCoordinatesTest {
 
 	
 	@Test
 	void testCartesianCoordinates() {
-		assertEquals(68.2, CartesianCoordinates.changeCartesianToAngle(2.0,5.0), 
+		assertEquals(5.0, PolarCoordinates.changePolarToY(5.39,68.2), 
 				(0));
 	}
 	
 	
 	@Test
 	void testCartesianCoordinates2() {
-		assertEquals(5.39, CartesianCoordinates.changeCartesianToMagnitud(2.0, 5.0), 
+		assertEquals(2.0, PolarCoordinates.changePolarToX(5.39, 68.2), 
 				(0));
 	}
 
