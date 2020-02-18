@@ -76,8 +76,10 @@ public class Plane extends Canvas{
 			Coordinates angle = new PolarCoordinates(7,30);
 			for(int i = 1; i <= 12; i++) {
 				angle.setO(30*i);
-				g.drawLine(xOrigin, yOrigin, printCoordinatesX(angle), printCoordinatesY(angle));
-				g.drawString(String.valueOf(angle.getO()), printCoordinatesX(angle), printCoordinatesY(angle));
+				int x = ((int)(angle.getX()*xGap)+xOrigin);
+				int y = ((int)(-angle.getY()*yGap)+yOrigin);
+				g.drawLine(xOrigin, yOrigin, x, y);
+				g.drawString(String.valueOf(angle.getO()), x, y);
 			}
 		}
 
