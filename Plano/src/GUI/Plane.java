@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 import Coordinates.CartesianCoordinates;
@@ -28,6 +30,7 @@ public class Plane extends Canvas{
 	int scale; 
 	boolean isCartesianPlane;
 	boolean isCartesianCoordinate;
+	Color colorTrace[];
 
 	public Plane() {
 		currentLine = new ArrayList<Coordinates>();
@@ -43,6 +46,12 @@ public class Plane extends Canvas{
 		scale = 1;
 		isCartesianPlane = true;
 		isCartesianCoordinate = true;
+		this.colorTrace = new Color[4];
+		colorTrace[0] = Color.RED;
+		colorTrace[1] = Color.ORANGE;
+		colorTrace[2] = Color.MAGENTA;
+		colorTrace[3] = new Color(20,198,5);
+		
 	}
 
 	@Override 
@@ -100,18 +109,20 @@ public class Plane extends Canvas{
 
 		//Draw Points
 		g.setColor(Color.red);
+		currentPoint = currentLine.get(currentLine.size()-1);
 		for(Coordinates p: currentLine) {
+			if(p.equals(currentPoint)) {
+				g.setColor(Color.BLUE); //Draw current Point different Color
+			}
 			g.fillOval((printCoordinatesX(p)-(pointWidth/2)),(printCoordinatesY(p)-(pointHeight/2)), pointWidth, pointHeight);
 		}
 
-		//Draw current Point in diferent Color
-		currentPoint = currentLine.get(currentLine.size()-1);
-		g.setColor(Color.BLUE);
-		g.fillOval((printCoordinatesX(currentPoint)-(pointWidth/2)),(printCoordinatesY(currentPoint)-(pointHeight/2)), pointWidth, pointHeight);
-
 		//Draw lines from point
-		g.setColor(Color.ORANGE);
+		g.setColor(colorTrace[3]);//Color of Lines
 		for(ArrayList<Coordinates> coordinates: lines) {
+			if(coordinates.equals(currentLine)) {
+				g.setColor(colorTrace[2]); //Color of Current Line
+			}
 			for(int i = 1; i < coordinates.size(); i++) {
 				Coordinates p0 = coordinates.get(i-1);
 				Coordinates p1 = coordinates.get(i);
