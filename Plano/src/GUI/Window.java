@@ -99,7 +99,7 @@ public class Window extends JFrame {
 		scaleLabel.setBounds(650, 5, 120, 21);
 		panel.add(scaleLabel);
 
-		JSlider slider = new JSlider(1,10,1);
+		JSlider slider = new JSlider(1,5,1);
 		slider.setBounds(655, 30, 120, 16);
 		panel.add(slider);
 
