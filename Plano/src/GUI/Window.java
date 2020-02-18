@@ -71,7 +71,7 @@ public class Window extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(175, 238, 238));
+		panel.setBackground(new Color(70, 162, 195));
 		panel.setBorder(new LineBorder(UIManager.getColor("Button.darkShadow"), 3, true));
 		panel.setBounds(0, 0, width, canvasY);
 		getContentPane().add(panel);
@@ -296,6 +296,19 @@ public class Window extends JFrame {
 			}
 		});
 
+		settingButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		helpButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);

@@ -140,9 +140,9 @@ public class Plane extends Canvas{
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.setColor(Color.BLUE);
 		if(isCartesianCoordinate)
-			g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-200, 20);
+			g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-195, 20);
 		else
-			g.drawString("( " + currentPoint.getR() + " , " + currentPoint.getO() + " )", this.getWidth()-200, 20);
+			g.drawString("( " + currentPoint.getR() + " , " + currentPoint.getO() + " )", this.getWidth()-195, 20);
 
 	}
 
@@ -159,6 +159,14 @@ public class Plane extends Canvas{
 	public void changeCoordinate() {
 		this.isCartesianCoordinate = !this.isCartesianCoordinate;
 		this.repaint();
+	}
+	
+	private int printCoordinatesX(Coordinates coor) {
+		return ((int)(coor.getX()/this.scale*xGap)+xOrigin);
+	}
+
+	private int printCoordinatesY(Coordinates coor) {
+		return ((int)(-coor.getY()/this.scale*yGap)+yOrigin);
 	}
 
 	public void addCartesianCoordinateDisplacement(int x, int y) {
@@ -212,12 +220,5 @@ public class Plane extends Canvas{
 		this.repaint();
 	}
 
-	private int printCoordinatesX(Coordinates coor) {
-		return ((int)(coor.getX()/this.scale*xGap)+xOrigin);
-	}
-
-	private int printCoordinatesY(Coordinates coor) {
-		return ((int)(-coor.getY()/this.scale*yGap)+yOrigin);
-	}
 
 }
