@@ -66,7 +66,7 @@ public class Window extends JFrame {
 	 */
 	public Window(int width, int height) throws ParseException {
 		int canvasY = 77; //this is the position in Y where the division is between plane and menu
-	
+
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 
@@ -124,6 +124,16 @@ public class Window extends JFrame {
 		formattedTextField.setBounds(210, 27, 85, 19);
 		panel.add(formattedTextField);
 
+		MaskFormatter formatPolar = new MaskFormatter();
+		formatPolar.setMask("( ## , ### )");
+		formatPolar.setPlaceholderCharacter('0');
+		JFormattedTextField formattedTextFieldPolar = new JFormattedTextField(formatPolar);
+		formattedTextFieldPolar.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextFieldPolar.setBounds(210, 27, 85, 19);
+		formattedTextFieldPolar.disable();
+		formattedTextFieldPolar.setVisible(false);
+		panel.add(formattedTextFieldPolar);
+
 		this.plane = new Plane();
 		this.plane.setBackground(Color.WHITE);
 		this.plane.setBounds(0, canvasY, width, height-(canvasY*2));
@@ -140,11 +150,19 @@ public class Window extends JFrame {
 					coordinatesButton.setLabel("Polar Coordinates");
 					coordinateLabel.setText("( r , " + ySign + "θ )");
 					isCartesianCoordinates = false;
+					formattedTextFieldPolar.enable();
+					formattedTextFieldPolar.setVisible(true);
+					formattedTextField.setVisible(false);
+					formattedTextField.disable();
 				}
 				else {
 					coordinatesButton.setLabel("Cartesian Coordinates");
 					coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 					isCartesianCoordinates = true;
+					formattedTextFieldPolar.disable();
+					formattedTextFieldPolar.setVisible(false);
+					formattedTextField.setVisible(true);
+					formattedTextField.enable();
 				}
 				plane.changeCoordinate();
 			}
@@ -171,55 +189,63 @@ public class Window extends JFrame {
 				plane.changeScale(slider.getValue());
 			}
 		});
-
+		
 		formattedTextField.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				if(isCartesianCoordinates) {
-					if(formattedTextField.getCaretPosition() > 1 && formattedTextField.getCaretPosition() < 5) {
-						if(arg0.getKeyChar() == '-') {
-							xSign = '-';
-						}
-						else if (arg0.getKeyChar() == '+') {
-							xSign = '+';
-						}
+				if(formattedTextField.getCaretPosition() > 1 && formattedTextField.getCaretPosition() < 5) {
+					if(arg0.getKeyChar() == '-') {
+						xSign = '-';
 					}
-					if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
-						if(arg0.getKeyChar() == '-') {
-							ySign = '-';
-						}
-						else if (arg0.getKeyChar() == '+') {
-							ySign = '+';
-
-						}
+					else if (arg0.getKeyChar() == '+') {
+						xSign = '+';
 					}
-					coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 				}
-				else {
-					//Only angle can be negative
-					if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
-						if(arg0.getKeyChar() == '-') {
-							ySign = '-';
-						}
-						else if (arg0.getKeyChar() == '+') {
-							ySign = '+';
-
-						}
+				if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+					if(arg0.getKeyChar() == '-') {
+						ySign = '-';
 					}
-					coordinateLabel.setText("( r , " + ySign + "θ )");				
+					else if (arg0.getKeyChar() == '+') {
+						ySign = '+';
+
+					}
 				}
+				coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 			}
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-
 			}
 
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
+			}
 
+		});	
+		
+		formattedTextFieldPolar.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				//Only angle can be negative
+				if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+					if(arg0.getKeyChar() == '-') {
+						ySign = '-';
+					}
+					else if (arg0.getKeyChar() == '+') {
+						ySign = '+';
+
+					}
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
 			}
 
 		});
@@ -227,10 +253,15 @@ public class Window extends JFrame {
 		formattedTextField.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				if(isCartesianCoordinates)
-					enterCartesianCoordinate(formattedTextField.getValue());
-				else
-					enterPolarCoordinate(formattedTextField.getValue());
+				enterCartesianCoordinate(formattedTextField.getValue());
+			}
+
+		});
+
+		formattedTextFieldPolar.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {	
+				enterPolarCoordinate(formattedTextFieldPolar.getValue());
 			}
 
 		});
@@ -241,7 +272,7 @@ public class Window extends JFrame {
 				if(isCartesianCoordinates)
 					enterCartesianCoordinate(formattedTextField.getValue());
 				else
-					enterPolarCoordinate(formattedTextField.getValue());
+					enterPolarCoordinate(formattedTextFieldPolar.getValue());
 			}
 		});
 
@@ -271,11 +302,11 @@ public class Window extends JFrame {
 			plane.addCartesianCoordinateDisplacement(x, y);
 		}
 	}
-	
+
 	private void enterPolarCoordinate(Object value) {
 		if(value != null) {
 			int r = Integer.parseInt(value.toString().substring(2,4));
-			int O = Integer.parseInt(ySign+value.toString().substring(7,9));
+			int O = Integer.parseInt(ySign+value.toString().substring(7,10));
 			plane.addPolarCoordinateDisplacement(r, O);
 		}
 	}
