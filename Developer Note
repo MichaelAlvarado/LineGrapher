@@ -5,13 +5,11 @@
 	-Anel Martinez
 	
 *To be done:
-	-Origin button
 	-Make a class that manage the list of coordinates
 	-Develop JUnit Test Case
-	-Improve Efficiency in coordinates input
 	
 *InProgress:
-	-GUI rearrangement (Michael/ Class: Window)
+	-Settings and help (Michael/ Class: Window)
 	
 *Progress: 
 	-Implemented Conversion Methods

@@ -107,22 +107,29 @@ public class Window extends JFrame {
 		enterButton.setBounds(210, 50, 85, 19);
 		panel.add(enterButton);
 
-
 		Button clearButton = new Button("Clear");
-		clearButton.setBounds(320, 27, 86, 23);
+		clearButton.setBounds(320, 10, 86, 23);
 		panel.add(clearButton);
 
 		Button originButton = new Button("New Trace");
-		originButton.setBounds(405, 27, 86, 23);
+		originButton.setBounds(405, 10, 86, 23);
 		panel.add(originButton);
 
-		MaskFormatter format = new MaskFormatter();
-		format.setMask("( ## , ## )");
-		format.setPlaceholderCharacter('0');
-		JFormattedTextField formattedTextField = new JFormattedTextField(format);
-		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setBounds(210, 27, 85, 19);
-		panel.add(formattedTextField);
+		Button settingButton = new Button("Setting");
+		settingButton.setBounds(405, 35, 86, 23);
+		panel.add(settingButton);
+
+		Button helpButton = new Button("Help");
+		helpButton.setBounds(320, 35, 86, 23);
+		panel.add(helpButton);
+
+		MaskFormatter formatCartesian = new MaskFormatter();
+		formatCartesian.setMask("( ## , ## )");
+		formatCartesian.setPlaceholderCharacter('0');
+		JFormattedTextField formattedTextFieldCartesian = new JFormattedTextField(formatCartesian);
+		formattedTextFieldCartesian.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextFieldCartesian.setBounds(210, 27, 85, 19);
+		panel.add(formattedTextFieldCartesian);
 
 		MaskFormatter formatPolar = new MaskFormatter();
 		formatPolar.setMask("( ## , ### )");
@@ -152,8 +159,8 @@ public class Window extends JFrame {
 					isCartesianCoordinates = false;
 					formattedTextFieldPolar.enable();
 					formattedTextFieldPolar.setVisible(true);
-					formattedTextField.setVisible(false);
-					formattedTextField.disable();
+					formattedTextFieldCartesian.setVisible(false);
+					formattedTextFieldCartesian.disable();
 				}
 				else {
 					coordinatesButton.setLabel("Cartesian Coordinates");
@@ -161,8 +168,8 @@ public class Window extends JFrame {
 					isCartesianCoordinates = true;
 					formattedTextFieldPolar.disable();
 					formattedTextFieldPolar.setVisible(false);
-					formattedTextField.setVisible(true);
-					formattedTextField.enable();
+					formattedTextFieldCartesian.setVisible(true);
+					formattedTextFieldCartesian.enable();
 				}
 				plane.changeCoordinate();
 			}
@@ -189,12 +196,12 @@ public class Window extends JFrame {
 				plane.changeScale(slider.getValue());
 			}
 		});
-		
-		formattedTextField.addKeyListener(new KeyListener() {
+
+		formattedTextFieldCartesian.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				if(formattedTextField.getCaretPosition() > 1 && formattedTextField.getCaretPosition() < 5) {
+				if(formattedTextFieldCartesian.getCaretPosition() > 1 && formattedTextFieldCartesian.getCaretPosition() < 5) {
 					if(arg0.getKeyChar() == '-') {
 						xSign = '-';
 					}
@@ -202,7 +209,7 @@ public class Window extends JFrame {
 						xSign = '+';
 					}
 				}
-				if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+				if(formattedTextFieldCartesian.getCaretPosition() > 5 && formattedTextFieldCartesian.getCaretPosition() < 10) {
 					if(arg0.getKeyChar() == '-') {
 						ySign = '-';
 					}
@@ -223,17 +230,13 @@ public class Window extends JFrame {
 			}
 
 		});	
-		
+
 		formattedTextFieldPolar.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
 				//Only angle can be negative
-				if(formattedTextField.getCaretPosition() > 5 && formattedTextField.getCaretPosition() < 10) {
+				if(formattedTextFieldCartesian.getCaretPosition() > 5 && formattedTextFieldCartesian.getCaretPosition() < 10) {
 					if(arg0.getKeyChar() == '-') {
 						ySign = '-';
 					}
@@ -245,15 +248,19 @@ public class Window extends JFrame {
 			}
 
 			@Override
+			public void keyReleased(KeyEvent arg0) {
+			}
+
+			@Override
 			public void keyTyped(KeyEvent arg0) {
 			}
 
 		});
 
-		formattedTextField.addPropertyChangeListener(new PropertyChangeListener() {
+		formattedTextFieldCartesian.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				enterCartesianCoordinate(formattedTextField.getValue());
+				enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
 			}
 
 		});
@@ -263,14 +270,13 @@ public class Window extends JFrame {
 			public void propertyChange(PropertyChangeEvent arg0) {	
 				enterPolarCoordinate(formattedTextFieldPolar.getValue());
 			}
-
 		});
 
 		enterButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(isCartesianCoordinates)
-					enterCartesianCoordinate(formattedTextField.getValue());
+					enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
 				else
 					enterPolarCoordinate(formattedTextFieldPolar.getValue());
 			}
