@@ -50,8 +50,8 @@ public class Plane extends Canvas{
 		colorTrace[0] = Color.RED;
 		colorTrace[1] = Color.ORANGE;
 		colorTrace[2] = Color.MAGENTA;
-		colorTrace[3] = new Color(20,198,5);
-		
+		colorTrace[3] = new Color(20,198,5); //Green
+
 	}
 
 	@Override 
@@ -62,7 +62,7 @@ public class Plane extends Canvas{
 		xOrigin = this.getWidth()/2; //position in canvas of point x origin
 		yOrigin = this.getHeight()/2; //position in canvas of point y origin
 
-		//draw squares cartesian Plane
+		//draw squares Cartesian Plane
 		if(isCartesianPlane) {
 			g.setColor(Color.LIGHT_GRAY);
 			//It draws negative and positive axis separately to make sure they are aligned with axis X and Y
@@ -101,10 +101,13 @@ public class Plane extends Canvas{
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.PLAIN, 14));
 		for(int s = 0; s < 8; s++) {
+			//If is polar plane only draw one number per magnitude
 			g.drawString(String.valueOf(s*this.scale), (xOrigin + s*xGap), yOrigin); //draw positive X coordinate 
-			g.drawString(String.valueOf(-s*this.scale), (xOrigin - s*xGap), yOrigin); //draw negative X coordinate 
-			g.drawString(String.valueOf(s*this.scale), xOrigin, (yOrigin - s*yGap)); //draw positive Y coordinate 
-			g.drawString(String.valueOf(-s*this.scale), xOrigin, (yOrigin + s*yGap)); //draw negative Y coordinate 
+			if(isCartesianPlane) {
+				g.drawString(String.valueOf(-s*this.scale), (xOrigin - s*xGap), yOrigin); //draw negative X coordinate 
+				g.drawString(String.valueOf(s*this.scale), xOrigin, (yOrigin - s*yGap)); //draw positive Y coordinate 
+				g.drawString(String.valueOf(-s*this.scale), xOrigin, (yOrigin + s*yGap)); //draw negative Y coordinate 
+			}
 		}
 
 		//Draw Points
@@ -129,6 +132,7 @@ public class Plane extends Canvas{
 				g.drawLine(printCoordinatesX(p0), printCoordinatesY(p0), printCoordinatesX(p1), printCoordinatesY(p1));
 			}
 		}
+
 		//Draw panel with coordinates
 		g.setColor(new Color(0,0,0,100));
 		g.fillRect(this.getWidth()-200, 0, 200, 30);
@@ -160,13 +164,13 @@ public class Plane extends Canvas{
 	public void addCartesianCoordinateDisplacement(int x, int y) {
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
 		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
-		    JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+			JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 		}
 		else {
 			currentLine.add(coordinate);
 			this.repaint();
 		}
-		
+
 	}
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
@@ -174,7 +178,7 @@ public class Plane extends Canvas{
 		double y = (r*(java.lang.Math.sin(Double.valueOf(Math.toRadians(O)))));
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
 		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
-		    JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+			JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 		}
 		else {
 			currentLine.add(coordinate);
