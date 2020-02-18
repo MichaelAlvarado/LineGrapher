@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import GUI.Window;
 
-public class launch {
+public class Launch {
 	/*
 	 * Launch Application
 	 */
