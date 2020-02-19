@@ -323,7 +323,6 @@ public class Window extends JFrame {
 			if (x > 20 || y > 20) {
 				JFrame dialog = new JFrame();
 				dialog.setVisible(true);
-				JOptionPane.setRootFrame(dialog);
 				//JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 			}
 			else {
