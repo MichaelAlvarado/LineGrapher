@@ -240,15 +240,15 @@ public class Window extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				//Only angle can be negative
-				if(formattedTextFieldCartesian.getCaretPosition() > 5 && formattedTextFieldCartesian.getCaretPosition() < 10) {
+				if(formattedTextFieldPolar.getCaretPosition() > 5 && formattedTextFieldPolar.getCaretPosition() < 10) {
 					if(arg0.getKeyChar() == '-') {
 						ySign = '-';
 					}
 					else if (arg0.getKeyChar() == '+') {
 						ySign = '+';
-
 					}
 				}
+				coordinateLabel.setText("( r , " + ySign + "θ )");
 			}
 
 			@Override
