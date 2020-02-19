@@ -45,6 +45,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.awt.Label;
 import javax.swing.JSlider;
@@ -319,6 +320,9 @@ public class Window extends JFrame {
 		if(value != null) {
 			int x = Integer.parseInt(xSign+value.toString().substring(2,4));
 			int y = Integer.parseInt(ySign+value.toString().substring(7,9));
+			if (x > 20 || y > 20) {
+				JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+			}
 			plane.addCartesianCoordinateDisplacement(x, y);
 		}
 	}
