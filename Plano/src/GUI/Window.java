@@ -219,14 +219,14 @@ public class Window extends JFrame {
 
 					}
 				}
-				if(arg0.getKeyCode() == arg0.VK_ENTER) {
-					enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
-				}
 				coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 			}
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
+				if(arg0.getKeyCode() == arg0.VK_ENTER) {
+					enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
+				}
 			}
 
 			@Override
