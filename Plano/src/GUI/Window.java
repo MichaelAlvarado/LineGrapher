@@ -240,7 +240,7 @@ public class Window extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				//Only angle can be negative
-				if(formattedTextFieldPolar.getCaretPosition() > 5 && formattedTextFieldPolar.getCaretPosition() < 10) {
+				if(formattedTextFieldPolar.getCaretPosition() > 5 && formattedTextFieldPolar.getCaretPosition() < 11) {
 					if(arg0.getKeyChar() == '-') {
 						ySign = '-';
 					}
@@ -253,27 +253,15 @@ public class Window extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
+				if(arg0.getKeyCode() == arg0.VK_ENTER) {
+					enterPolarCoordinate(formattedTextFieldPolar.getValue());
+				}
 			}
 
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 			}
 
-		});
-//
-//		formattedTextFieldCartesian.addPropertyChangeListener(new PropertyChangeListener() {
-//			@Override
-//			public void propertyChange(PropertyChangeEvent arg0) {
-//				enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
-//			}
-//
-//		});
-
-		formattedTextFieldPolar.addPropertyChangeListener(new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent arg0) {	
-				enterPolarCoordinate(formattedTextFieldPolar.getValue());
-			}
 		});
 
 		enterButton.addMouseListener(new MouseAdapter() {

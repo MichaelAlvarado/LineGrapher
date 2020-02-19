@@ -56,7 +56,6 @@ public class Plane extends Canvas{
 
 	@Override 
 	public void paint(Graphics g) {
-		//have to initialize the variable here IDK why
 		xGap = this.getWidth()/16; //wide of rectangles
 		yGap = this.getHeight()/16; //height of rectangles
 		xOrigin = this.getWidth()/2; //position in canvas of point x origin
@@ -120,7 +119,7 @@ public class Plane extends Canvas{
 			g.fillOval((printCoordinatesX(p)-(pointWidth/2)),(printCoordinatesY(p)-(pointHeight/2)), pointWidth, pointHeight);
 		}
 
-		//Draw lines from point
+		//Draw lines from point to point
 		g.setColor(colorTrace[3]);//Color of Lines
 		for(ArrayList<Coordinates> coordinates: lines) {
 			if(coordinates.equals(currentLine)) {
@@ -174,8 +173,8 @@ public class Plane extends Canvas{
 	}
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
-		double x = (r*(java.lang.Math.cos(Double.valueOf(Math.toRadians(O)))));
-		double y = (r*(java.lang.Math.sin(Double.valueOf(Math.toRadians(O)))));
+		double x = PolarCoordinates.changePolarToX(r, O);
+		double y = PolarCoordinates.changePolarToY(r, O);
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
 		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
 			JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
