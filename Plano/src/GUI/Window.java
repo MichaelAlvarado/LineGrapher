@@ -101,6 +101,7 @@ public class Window extends JFrame {
 
 		JSlider slider = new JSlider(1,4,1);
 		slider.setBounds(655, 30, 120, 16);
+		slider.setBackground(new Color(65, 150, 185));
 		panel.add(slider);
 
 		Button enterButton = new Button("Enter");
