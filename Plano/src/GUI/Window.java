@@ -45,7 +45,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.awt.Label;
 import javax.swing.JSlider;
@@ -220,6 +219,9 @@ public class Window extends JFrame {
 
 					}
 				}
+				if(arg0.getKeyCode() == arg0.VK_ENTER) {
+					enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
+				}
 				coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 			}
 
@@ -258,14 +260,14 @@ public class Window extends JFrame {
 			}
 
 		});
-
-		formattedTextFieldCartesian.addPropertyChangeListener(new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent arg0) {
-				enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
-			}
-
-		});
+//
+//		formattedTextFieldCartesian.addPropertyChangeListener(new PropertyChangeListener() {
+//			@Override
+//			public void propertyChange(PropertyChangeEvent arg0) {
+//				enterCartesianCoordinate(formattedTextFieldCartesian.getValue());
+//			}
+//
+//		});
 
 		formattedTextFieldPolar.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
@@ -320,14 +322,7 @@ public class Window extends JFrame {
 		if(value != null) {
 			int x = Integer.parseInt(xSign+value.toString().substring(2,4));
 			int y = Integer.parseInt(ySign+value.toString().substring(7,9));
-			if (x > 20 || y > 20) {
-				JFrame dialog = new JFrame();
-				dialog.setVisible(true);
-				//JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
-			}
-			else {
-				plane.addCartesianCoordinateDisplacement(x, y);
-			}
+			plane.addCartesianCoordinateDisplacement(x, y);
 		}
 	}
 
