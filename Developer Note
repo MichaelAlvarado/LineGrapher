@@ -6,13 +6,17 @@
 	
 *To be done:
 	-Make a class that manage the list of coordinates
+	-Help and Setting Button
+	-Consider change the text Coordinates and Plane 
+	-Change sign of coordinates with '-' key
+	-Bug fix of enter in polar Coordinates
 	-Develop JUnit Test Case
+	-Delete Lines build for testing
+	-Rearrange code of invalid input to window 
+	-Add documentation to code with (Objective, pre- post-condition, parameters, author name, date)
 	
 *InProgress:
-	-Settings and help (Michael/ Class: Window)
+	-Rearrange code (Michael/ Class: Window)
 	
 *Progress: 
-	-Implemented Conversion Methods
-		-Problem with PolarCoordinates methods.
-	-Started working on JUNIT Test cases but it is not yet fully implemented.
-		-Invocation Target Exception is thrown.
+	
