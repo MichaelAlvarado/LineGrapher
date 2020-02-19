@@ -301,14 +301,14 @@ public class Window extends JFrame {
 		settingButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
-		
+
 		helpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
 
@@ -323,7 +323,9 @@ public class Window extends JFrame {
 			if (x > 20 || y > 20) {
 				JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 			}
-			plane.addCartesianCoordinateDisplacement(x, y);
+			else {
+				plane.addCartesianCoordinateDisplacement(x, y);
+			}
 		}
 	}
 
