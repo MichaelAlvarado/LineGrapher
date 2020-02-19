@@ -321,7 +321,10 @@ public class Window extends JFrame {
 			int x = Integer.parseInt(xSign+value.toString().substring(2,4));
 			int y = Integer.parseInt(ySign+value.toString().substring(7,9));
 			if (x > 20 || y > 20) {
-				JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
+				JFrame dialog = new JFrame();
+				dialog.setVisible(true);
+				JOptionPane.setRootFrame(dialog);
+				//JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 			}
 			else {
 				plane.addCartesianCoordinateDisplacement(x, y);
