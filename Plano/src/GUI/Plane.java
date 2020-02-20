@@ -164,7 +164,7 @@ public class Plane extends Canvas{
 
 	public void addCartesianCoordinateDisplacement(int x, int y) {
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
-		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
+		if (coordinate.getX() > 20 || coordinate.getX() < -20 || coordinate.getY() > 20 || coordinate.getY() < -20) {
 			JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 		}
 		else {
@@ -178,7 +178,7 @@ public class Plane extends Canvas{
 		double x = PolarCoordinates.changePolarToX(r, O);
 		double y = PolarCoordinates.changePolarToY(r, O);
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
-		if (coordinate.getX() > 20 || coordinate.getY() > 20) {
+		if (coordinate.getX() > 20 || coordinate.getX() < -20 || coordinate.getY() > 20 || coordinate.getY() < -20) {
 			JOptionPane.showMessageDialog(this, "Out of bounds displacement! Try again!");
 		}
 		else {
