@@ -11,7 +11,6 @@ public class PolarCoordinates extends Coordinates{
 	public static double changePolarToY(double r, double O) {
 		O = Math.toRadians(O);
 		double y = r*(Math.sin(O));
-		System.out.println(O);
 		return Math.round(y * 100.0) / 100.0;
 	}
 

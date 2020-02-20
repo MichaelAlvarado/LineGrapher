@@ -134,7 +134,7 @@ public class Window extends JFrame {
 		panel.add(helpButton);
 
 		MaskFormatter formatCartesian = new MaskFormatter();
-		formatCartesian.setMask("( ## , ## )");
+		formatCartesian.setMask("(## , ##)");
 		formatCartesian.setPlaceholderCharacter('0');
 		JFormattedTextField formattedTextFieldCartesian = new JFormattedTextField(formatCartesian);
 		formattedTextFieldCartesian.setHorizontalAlignment(SwingConstants.CENTER);
@@ -142,12 +142,11 @@ public class Window extends JFrame {
 		panel.add(formattedTextFieldCartesian);
 
 		MaskFormatter formatPolar = new MaskFormatter();
-		formatPolar.setMask("( ## , ### )");
+		formatPolar.setMask("(## , ###)");
 		formatPolar.setPlaceholderCharacter('0');
 		JFormattedTextField formattedTextFieldPolar = new JFormattedTextField(formatPolar);
 		formattedTextFieldPolar.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextFieldPolar.setBounds(210, 27, 85, 19);
-		formattedTextFieldPolar.disable();
 		formattedTextFieldPolar.setVisible(false);
 		panel.add(formattedTextFieldPolar);
 
@@ -167,19 +166,15 @@ public class Window extends JFrame {
 					coordinatesButton.setLabel("Polar Coordinates");
 					coordinateLabel.setText("( r , " + ySign + "θ )");
 					isCartesianCoordinates = false;
-					formattedTextFieldPolar.enable();
 					formattedTextFieldPolar.setVisible(true);
 					formattedTextFieldCartesian.setVisible(false);
-					formattedTextFieldCartesian.disable();
 				}
 				else {
 					coordinatesButton.setLabel("Cartesian Coordinates");
 					coordinateLabel.setText("( " + xSign + "X , " + ySign + "Y )");
 					isCartesianCoordinates = true;
-					formattedTextFieldPolar.disable();
 					formattedTextFieldPolar.setVisible(false);
 					formattedTextFieldCartesian.setVisible(true);
-					formattedTextFieldCartesian.enable();
 				}
 				plane.changeCoordinate();
 			}
@@ -211,7 +206,7 @@ public class Window extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				if(formattedTextFieldCartesian.getCaretPosition() > 1 && formattedTextFieldCartesian.getCaretPosition() < 5) {
+				if(formattedTextFieldCartesian.getCaretPosition() > 0 && formattedTextFieldCartesian.getCaretPosition() < 5) {
 					if(arg0.getKeyChar() == '-') {
 						if(xSign == '-')
 							xSign = '+';
@@ -326,16 +321,16 @@ public class Window extends JFrame {
 
 	private void enterCartesianCoordinate(Object value) {
 		if(value != null) {
-			int x = Integer.parseInt(xSign+value.toString().substring(2,4));
-			int y = Integer.parseInt(ySign+value.toString().substring(7,9));
+			int x = Integer.parseInt(xSign+value.toString().substring(1,3));
+			int y = Integer.parseInt(ySign+value.toString().substring(6,8));
 			plane.addCartesianCoordinateDisplacement(x, y);
 		}
 	}
 
 	private void enterPolarCoordinate(Object value) {
 		if(value != null) {
-			int r = Integer.parseInt(value.toString().substring(2,4));
-			int O = Integer.parseInt(ySign+value.toString().substring(7,10));
+			int r = Integer.parseInt(value.toString().substring(1,3));
+			int O = Integer.parseInt(ySign+value.toString().substring(6,9));
 			plane.addPolarCoordinateDisplacement(r, O);
 		}
 	}
