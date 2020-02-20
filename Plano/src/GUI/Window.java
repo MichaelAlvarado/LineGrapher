@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +26,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 
+import java.awt.Color;
 import javax.swing.ButtonGroup;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
@@ -35,6 +39,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
+import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultEditorKit;
@@ -45,8 +50,12 @@ import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.awt.Label;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+
 import javax.swing.JSlider;
 import java.awt.Button;
 
@@ -291,14 +300,13 @@ public class Window extends JFrame {
 		settingButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				settingScreen(e.getX()+settingButton.getX(), e.getY()+settingButton.getY()+canvasY);
 			}
 		});
 
 		helpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 			}
 		});
 
@@ -320,6 +328,68 @@ public class Window extends JFrame {
 			int O = Integer.parseInt(ySign+value.toString().substring(7,10));
 			plane.addPolarCoordinateDisplacement(r, O);
 		}
+	}
+	
+	private void settingScreen(int x, int y) {
+		PopupMenu setting = new PopupMenu();
+		
+		MenuItem clear = new MenuItem("clear current");
+		MenuItem pColor = new MenuItem("change current point Color");
+		
+		clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				plane.clear();
+			}
+		});
+		
+		pColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			colorPopup(x,y);
+			}
+		});
+		
+		setting.add(pColor);
+		setting.add(clear);
+		
+		this.add(setting);
+		setting.show(this, x, y);
+	}
+	private void colorPopup(int x, int y) {
+		PopupMenu ColorPopup = new PopupMenu();
+		
+		MenuItem magenta = new MenuItem("Magenta");
+		MenuItem green = new MenuItem("Green");
+		MenuItem red = new MenuItem("Red");
+
+		
+		magenta.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 plane.currentPointColor(Color.MAGENTA); 
+			}
+		});
+		
+		green.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 plane.currentPointColor(new Color(20,198,5)); //Green
+			}
+		});
+		
+		red.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 plane.currentPointColor(Color.RED); 
+			}
+		});
+		
+		ColorPopup.add(red);
+		ColorPopup.add(green);
+		ColorPopup.add(magenta);
+		this.add(ColorPopup);
+		ColorPopup.show(this, x, y);
 	}
 
 

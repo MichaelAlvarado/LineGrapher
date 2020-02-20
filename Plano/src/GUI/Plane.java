@@ -4,7 +4,10 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Menu;
+import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.PopupMenu;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,7 +33,7 @@ public class Plane extends Canvas{
 	int scale; 
 	boolean isCartesianPlane;
 	boolean isCartesianCoordinate;
-	Color colorTrace[];
+	Color cP, cL, pP, pL; //Color for c=current p=previous P=Point L=Line
 
 	public Plane() {
 		currentLine = new ArrayList<Coordinates>();
@@ -46,11 +49,10 @@ public class Plane extends Canvas{
 		scale = 1;
 		isCartesianPlane = true;
 		isCartesianCoordinate = true;
-		this.colorTrace = new Color[4];
-		colorTrace[0] = Color.RED;
-		colorTrace[1] = Color.ORANGE;
-		colorTrace[2] = Color.MAGENTA;
-		colorTrace[3] = new Color(20,198,5); //Green
+		cP = Color.BLUE;
+		cL = Color.MAGENTA;
+		pP = Color.RED;
+		pL = new Color(20,198,5); //Green
 
 	}
 
@@ -110,20 +112,20 @@ public class Plane extends Canvas{
 		}
 
 		//Draw Points
-		g.setColor(Color.red);
+		g.setColor(pP);
 		currentPoint = currentLine.get(currentLine.size()-1);
 		for(Coordinates p: currentLine) {
 			if(p.equals(currentPoint)) {
-				g.setColor(Color.BLUE); //Draw current Point different Color
+				g.setColor(cP); //Draw current Point different Color
 			}
 			g.fillOval((printCoordinatesX(p)-(pointWidth/2)),(printCoordinatesY(p)-(pointHeight/2)), pointWidth, pointHeight);
 		}
 
 		//Draw lines from point to point
-		g.setColor(colorTrace[3]);//Color of Lines
+		g.setColor(pL);//Color of Lines
 		for(ArrayList<Coordinates> coordinates: lines) {
 			if(coordinates.equals(currentLine)) {
-				g.setColor(colorTrace[2]); //Color of Current Line
+				g.setColor(cL); //Color of Current Line
 			}
 			for(int i = 1; i < coordinates.size(); i++) {
 				Coordinates p0 = coordinates.get(i-1);
@@ -208,6 +210,26 @@ public class Plane extends Canvas{
 		line.add(new CartesianCoordinates(0,0));
 		lines.add(line);
 		currentLine = line; 
+		this.repaint();
+	}
+	
+	public void currentPointColor(Color cP) {
+		this.cP = cP;
+		this.repaint();
+	}
+	
+	public void currentLineColor(Color cL) {
+		this.cL = cL;
+		this.repaint();
+	}
+	
+	public void previousPointColor(Color pP) {
+		this.pP = pP;
+		this.repaint();
+	}
+	
+	public void previousLineColor(Color pL) {
+		this.pL = pL;
 		this.repaint();
 	}
 
