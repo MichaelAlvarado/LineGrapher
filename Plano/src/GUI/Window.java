@@ -396,6 +396,7 @@ public class Window extends JFrame {
 		MenuItem green = new MenuItem("Green");
 		MenuItem red = new MenuItem("Red");
 		MenuItem blue = new MenuItem("Blue");
+		MenuItem orange = new MenuItem("Orange");
 
 
 		magenta.addActionListener(new ActionListener() {
@@ -454,7 +455,22 @@ public class Window extends JFrame {
 					plane.previousLineColor(Color.BLUE);
 			}
 		});
-
+		
+		orange.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(component.equals("currentPoint"))
+					plane.currentPointColor(Color.ORANGE); 
+				else if(component.equals("currentLine"))
+					plane.currentLineColor(Color.ORANGE);
+				else if(component.equals("previousPoint"))
+					plane.previousPointColor(Color.ORANGE);
+				else if(component.equals("previousLine"))
+					plane.previousLineColor(Color.ORANGE);
+			}
+		});
+		
+		ColorPopup.add(orange);
 		ColorPopup.add(blue);
 		ColorPopup.add(red);
 		ColorPopup.add(green);
