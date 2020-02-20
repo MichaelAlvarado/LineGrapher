@@ -307,6 +307,7 @@ public class Window extends JFrame {
 		helpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				helpScreen();
 			}
 		});
 
@@ -456,6 +457,10 @@ public class Window extends JFrame {
 		ColorPopup.add(magenta);
 		this.add(ColorPopup);
 		ColorPopup.show(this, x, y);
+	}
+	
+	private void helpScreen() {
+		JOptionPane.showMessageDialog(this, "Help \n Instructions:");
 	}
 
 
