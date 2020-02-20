@@ -329,62 +329,128 @@ public class Window extends JFrame {
 			plane.addPolarCoordinateDisplacement(r, O);
 		}
 	}
-	
+
 	private void settingScreen(int x, int y) {
 		PopupMenu setting = new PopupMenu();
-		
-		MenuItem clear = new MenuItem("clear current");
-		MenuItem pColor = new MenuItem("change current point Color");
-		
+
+		MenuItem clear = new MenuItem("clear current line");
+		MenuItem cpColor = new MenuItem("change current point Color");
+		MenuItem clColor = new MenuItem("change current line Color");
+		MenuItem ppColor = new MenuItem("change previous point Color");
+		MenuItem plColor = new MenuItem("change previous line Color");
+
 		clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				plane.clear();
 			}
 		});
-		
-		pColor.addActionListener(new ActionListener() {
+
+		cpColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			colorPopup(x,y);
+				colorPopup(x,y,"currentPoint");
 			}
 		});
-		
-		setting.add(pColor);
+
+		clColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				colorPopup(x,y,"currentLine");
+			}
+		});
+
+		ppColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				colorPopup(x,y,"previousPoint");
+			}
+		});
+
+		plColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				colorPopup(x,y,"previousLine");
+			}
+		});
+
+		setting.add(cpColor);
+		setting.add(clColor);
+		setting.add(ppColor);
+		setting.add(plColor);
 		setting.add(clear);
-		
+
 		this.add(setting);
 		setting.show(this, x, y);
 	}
-	private void colorPopup(int x, int y) {
+
+	private void colorPopup(int x, int y, String component) {
 		PopupMenu ColorPopup = new PopupMenu();
-		
+
 		MenuItem magenta = new MenuItem("Magenta");
 		MenuItem green = new MenuItem("Green");
 		MenuItem red = new MenuItem("Red");
+		MenuItem blue = new MenuItem("Blue");
 
-		
+
 		magenta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 plane.currentPointColor(Color.MAGENTA); 
+				if(component.equals("currentPoint"))
+					plane.currentPointColor(Color.MAGENTA); 
+				else if(component.equals("currentLine"))
+					plane.currentLineColor(Color.MAGENTA);
+				else if(component.equals("previousPoint"))
+					plane.previousPointColor(Color.MAGENTA);
+				else if(component.equals("previousLine"))
+					plane.previousLineColor(Color.MAGENTA);
 			}
 		});
-		
+
 		green.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 plane.currentPointColor(new Color(20,198,5)); //Green
+				Color green = new Color(20,198,5); //Green
+				if(component.equals("currentPoint"))
+					plane.currentPointColor(green); 
+				else if(component.equals("currentLine"))
+					plane.currentLineColor(green);
+				else if(component.equals("previousPoint"))
+					plane.previousPointColor(green);
+				else if(component.equals("previousLine"))
+					plane.previousLineColor(green);
 			}
 		});
-		
+
 		red.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 plane.currentPointColor(Color.RED); 
+				if(component.equals("currentPoint"))
+					plane.currentPointColor(Color.RED); 
+				else if(component.equals("currentLine"))
+					plane.currentLineColor(Color.RED);
+				else if(component.equals("previousPoint"))
+					plane.previousPointColor(Color.RED);
+				else if(component.equals("previousLine"))
+					plane.previousLineColor(Color.RED);
 			}
 		});
 		
+		blue.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(component.equals("currentPoint"))
+					plane.currentPointColor(Color.BLUE); 
+				else if(component.equals("currentLine"))
+					plane.currentLineColor(Color.BLUE);
+				else if(component.equals("previousPoint"))
+					plane.previousPointColor(Color.BLUE);
+				else if(component.equals("previousLine"))
+					plane.previousLineColor(Color.BLUE);
+			}
+		});
+
+		ColorPopup.add(blue);
 		ColorPopup.add(red);
 		ColorPopup.add(green);
 		ColorPopup.add(magenta);
