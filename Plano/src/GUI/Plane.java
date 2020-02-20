@@ -139,7 +139,7 @@ public class Plane extends Canvas{
 		g.fillRect(this.getWidth()-200, 0, 200, 30);
 		//Draw coordinates point on panel
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
-		g.setColor(Color.BLUE);
+		g.setColor(cP);
 		if(isCartesianCoordinate)
 			g.drawString("( " + currentPoint.getX() + " , " + currentPoint.getY() + " )", this.getWidth()-200, 20);
 		else

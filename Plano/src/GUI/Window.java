@@ -117,7 +117,7 @@ public class Window extends JFrame {
 		enterButton.setBounds(210, 50, 85, 19);
 		panel.add(enterButton);
 
-		Button clearButton = new Button("Clear");
+		Button clearButton = new Button("Clear all");
 		clearButton.setBounds(320, 10, 86, 23);
 		panel.add(clearButton);
 
@@ -213,7 +213,10 @@ public class Window extends JFrame {
 			public void keyPressed(KeyEvent arg0) {
 				if(formattedTextFieldCartesian.getCaretPosition() > 1 && formattedTextFieldCartesian.getCaretPosition() < 5) {
 					if(arg0.getKeyChar() == '-') {
-						xSign = '-';
+						if(xSign == '-')
+							xSign = '+';
+						else
+							xSign = '-';
 					}
 					else if (arg0.getKeyChar() == '+') {
 						xSign = '+';
@@ -221,7 +224,10 @@ public class Window extends JFrame {
 				}
 				if(formattedTextFieldCartesian.getCaretPosition() > 5 && formattedTextFieldCartesian.getCaretPosition() < 10) {
 					if(arg0.getKeyChar() == '-') {
-						ySign = '-';
+						if(ySign == '-')
+							ySign = '+';
+						else
+							ySign = '-';
 					}
 					else if (arg0.getKeyChar() == '+') {
 						ySign = '+';
@@ -251,7 +257,10 @@ public class Window extends JFrame {
 				//Only angle can be negative
 				if(formattedTextFieldPolar.getCaretPosition() > 5 && formattedTextFieldPolar.getCaretPosition() < 11) {
 					if(arg0.getKeyChar() == '-') {
-						ySign = '-';
+						if(ySign == '-')
+							ySign = '+';
+						else
+							ySign = '-';
 					}
 					else if (arg0.getKeyChar() == '+') {
 						ySign = '+';
@@ -436,7 +445,7 @@ public class Window extends JFrame {
 					plane.previousLineColor(Color.RED);
 			}
 		});
-		
+
 		blue.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -458,9 +467,10 @@ public class Window extends JFrame {
 		this.add(ColorPopup);
 		ColorPopup.show(this, x, y);
 	}
-	
+
 	private void helpScreen() {
-		JOptionPane.showMessageDialog(this, "Help \n Instructions:");
+		String Instructions = "Help \n Instructions:";
+		JOptionPane.showMessageDialog(this, Instructions);
 	}
 
 

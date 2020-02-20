@@ -6,17 +6,14 @@
 	
 *To be done:
 	-Make a class that manage the list of coordinates
-	-Help and Setting Button
 	-Consider change the text Coordinates and Plane 
-	-Change sign of coordinates with '-' key
-	-Bug fix of enter in polar Coordinates
+	-Make instruction in helpScreen
 	-Develop JUnit Test Case
 	-Delete Lines build for testing
-	-Rearrange code of invalid input to window 
 	-Add documentation to code with (Objective, pre- post-condition, parameters, author name, date)
 	
 *InProgress:
-	-Setting Button (Michael/ Class: Window)
+	-Setting Button (Michael)
 	
 *Progress: 
 	
