@@ -480,7 +480,25 @@ public class Window extends JFrame {
 	}
 
 	private void helpScreen() {
-		String Instructions = "Help \n Instructions:";
+		String Instructions = "Welcome to Coordinates Simulator!\n" + 
+				"For this application you will be able to input your desired coordinates and therefore see their behavior. \n" + 
+				"\nRules of Use and Limitations: \n" + 
+				"Input coordinates (in polar or cartesian) in the space provided and press enter.\n"
+				+ "This will cause the coordinates to be displayed in the plane. Keep in mind that you need to input 2 digits \n"
+				+ "for cartesian coordinates (example (01, 15)) and polar magnitude but you need 3 digits for the desired degree in polar (example (18, 160)).\n"
+				+ " Take note that the range of the planes is from -20 to +20 in both axes.\n"
+				+ "If you exceed the limit a pop-up window will appear telling you that the placed coordinate is invalid \n" + 
+				"\nInstructions: \n" + 
+				"-Enter desired polar or cartesian coordinates in the space provided. Press (“-”) to get negative values and \n"
+				+ "(“+”) to return to positive values. \n" + 
+				"-Change Coordinate Type Button (Upper Left) – Press this button if you desire to toggle between using\n"
+				+ " polar or cartesian input coordinates. To make sure you are working in the correct type, look at the symbols at the left of this button:\n"
+				+ " “(X,Y)” represent cartesian, “(r,0)” represent polar. \n" + 
+				"-Change Plane Type Button – Press to toggle between Polar and Cartesian point of view. \n" + 
+				"-Slider – Change view scale of the plane up to about 30 in range to each direction. \n" + 
+				"-Clear Button – Erases all past traces and starts new coordinate list from origin (0,0). \n" + 
+				"-New Trace Button – Keeps all coordinates in place and starts designing anew from origin (0,0).\n" + 
+				"-Settings Button – Here you’ll find some tools to change the application aspects.";
 		JOptionPane.showMessageDialog(this, Instructions);
 	}
 

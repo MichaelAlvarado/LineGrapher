@@ -171,7 +171,6 @@ public class Plane extends Canvas{
 			currentLine.add(coordinate);
 			this.repaint();
 		}
-
 	}
 
 	public void addPolarCoordinateDisplacement(int r, int O) {
