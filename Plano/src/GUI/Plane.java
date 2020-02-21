@@ -38,10 +38,6 @@ public class Plane extends Canvas{
 	public Plane() {
 		currentLine = new ArrayList<Coordinates>();
 		currentLine.add(new CartesianCoordinates(0,0));
-		currentLine.add(new CartesianCoordinates(1,3));
-		currentLine.add(new CartesianCoordinates(-2,4));
-		currentLine.add(new CartesianCoordinates(-2,-5));
-		currentLine.add(new CartesianCoordinates(3,-2));
 		lines = new ArrayList<ArrayList<Coordinates>>();
 		lines.add(currentLine);
 		pointWidth = 10;

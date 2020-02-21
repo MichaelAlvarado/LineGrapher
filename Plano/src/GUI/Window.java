@@ -315,6 +315,7 @@ public class Window extends JFrame {
 			}
 		});
 
+		setTitle("Line Tracer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
 	}
@@ -480,7 +481,7 @@ public class Window extends JFrame {
 	}
 
 	private void helpScreen() {
-		String Instructions = "Welcome to Coordinates Simulator!\n" + 
+		String Instructions = "Welcome to Line Tracer!\n" + 
 				"For this application you will be able to input your desired coordinates and therefore see their behavior. \n" + 
 				"\nRules of Use and Limitations: \n" + 
 				"Input coordinates (in polar or cartesian) in the space provided and press enter.\n"
