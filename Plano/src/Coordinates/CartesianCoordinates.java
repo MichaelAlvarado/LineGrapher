@@ -7,6 +7,10 @@ public class CartesianCoordinates extends Coordinates{
 	}
 	
 	public static double changeCartesianToAngle(double x2, double y2) {
+//		if ((x2 == 0) && (y2 != 0)){
+//			throw new ArithmeticException("Division by cero results in "
+//					+ "indefnitie number");
+//		}
 		double O = Math.atan((y2/x2));
 		O = Math.toDegrees(O);
 		return Math.round(O * 100.0) / 100.0;

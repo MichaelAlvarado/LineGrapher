@@ -9,12 +9,18 @@ public class PolarCoordinates extends Coordinates{
 
 	
 	public static double changePolarToY(double r, double O) {
+		if (r < 0) {
+			throw new IllegalArgumentException("Magnitude cannot be negative");
+		}
 		O = Math.toRadians(O);
 		double y = r*(Math.sin(O));
 		return Math.round(y * 100.0) / 100.0;
 	}
 
 	public static double changePolarToX(double r, double O) {
+		if (r < 0) {
+			throw new IllegalArgumentException("Magnitude cannot be negative");
+		}
 		O = Math.toRadians(O);
 		double x = r*Math.cos(O);
 		return Math.round(x * 100.0) / 100.0;
