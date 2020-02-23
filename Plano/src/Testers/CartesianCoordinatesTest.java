@@ -37,8 +37,6 @@ class CartesianCoordinatesTest {
 				(0));
 		assertEquals(-73.3, CartesianCoordinates.changeCartesianToAngle(-3.0,10.0), 
 				(0));
-//		Assertions.assertThrows(ArithmeticException.class, 
-//				() -> CartesianCoordinates.changeCartesianToAngle(0,10));
 	}
 	
 	/**
