@@ -12,6 +12,18 @@ import Coordinates.PolarCoordinates;
 
 class PolarCoordinatesTest {
 
+	/**
+	 * @author jorgecalderon
+	 * Objective - Test the changePolarToY method in PolarCoordinates class
+	 * Preconditions - Think about the worst cases possible to test the method's functionality. 
+	 * Ex: Negative and Positive Numbers, Ceros, etc...
+	 * Postconditions - If all tests pass it means the methods are working correctly for the specified
+	 * test cases.
+	 * Date - 02/22/2020
+	 * @param  - N/A 
+	 * @param  - N/A 
+	 * @return - N/A
+	 */
 	
 	@Test
 	void testCartesianCoordinates() {
@@ -29,6 +41,18 @@ class PolarCoordinatesTest {
 				() -> PolarCoordinates.changePolarToY(-23,70));
 	}
 	
+	/**
+	 * @author jorgecalderon
+	 * Objective - Test the changePolarToX method in PolarCoordinates class
+	 * Preconditions - Think about the worst cases possible to test the method's functionality. 
+	 * Ex: Negative and Positive Numbers, Ceros, etc...
+	 * Postconditions - If all tests pass it means the methods are working correctly for the specified
+	 * test cases.
+	 * Date - 02/22/2020
+	 * @param  - N/A 
+	 * @param  - N/A 
+	 * @return - N/A
+	 */
 	
 	@Test
 	void testCartesianCoordinates2() {

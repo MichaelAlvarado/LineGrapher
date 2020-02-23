@@ -14,6 +14,19 @@ import Coordinates.CartesianCoordinates;
 class CartesianCoordinatesTest {
 
 	
+	/**
+	 * @author jorgecalderon
+	 * Objective - Test the changeCartesianToAngleMethod in CartesianCoordinates class
+	 * Preconditions - Think about the worst cases possible to test the method's functionality. 
+	 * Ex: Negative and Positive Numbers, Ceros, etc...
+	 * Postconditions - If all tests pass it means the methods are working correctly for the specified
+	 * test cases.
+	 * Date - 02/22/2020
+	 * @param  - N/A 
+	 * @param  - N/A 
+	 * @return - N/A
+	 */
+	
 	@Test
 	void testCartesianCoordinates() {
 		assertEquals(68.2, CartesianCoordinates.changeCartesianToAngle(2.0,5.0), 
@@ -28,6 +41,18 @@ class CartesianCoordinatesTest {
 //				() -> CartesianCoordinates.changeCartesianToAngle(0,10));
 	}
 	
+	/**
+	 * @author jorgecalderon
+	 * Objective - Test the changeCartesianToMagnitude in CartesianCoordinates class
+	 * Preconditions - Think about the worst cases possible to test the method's functionality. 
+	 * Ex: Negative and Positive Numbers, Ceros, etc...
+	 * Postconditions - If all tests pass it means the methods are working correctly for the specified
+	 * test cases.
+	 * Date - 02/22/2020
+	 * @param  - N/A 
+	 * @param  - N/A 
+	 * @return - N/A
+	 */
 	
 	@Test
 	void testCartesianCoordinates2() {
