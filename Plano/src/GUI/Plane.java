@@ -20,7 +20,13 @@ import Coordinates.PolarCoordinates;
 /**
  * 
  * @author Michael Alvarado
- * This class is the cartasian plane where the point are going to be drawn
+ * Date - 11/Feb/2020
+ * This class is the canvas where the Plane is going to be drawn at
+ * This class can display the Cartesian or Polar Plane (use changePlane method to switch between planes)
+ * The plane can the scaled to allow the user to see all points (use changeScale method)
+ * On the upper right side of the plane it will display the current point coordinates, with changeCoordinates method you could see coordinates in Polar or Cartesian format
+ * 
+ *
  */
 public class Plane extends Canvas{
 
@@ -143,16 +149,32 @@ public class Plane extends Canvas{
 
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 11/Feb/2020
+	 * Objective - This method will change the scale of the plane to value parameter
+	 * @param value - The scale value which the coordinate will be step
+	 */
 	public void changeScale(int value) {
 		this.scale = value;
 		this.repaint();
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 11/Feb/2020
+	 * Objective - This method will change the plane between Cartesian and Polar and repaint the canvas to see the changes
+	 */
 	public void changePlane() {
 		this.isCartesianPlane = !this.isCartesianPlane;
 		this.repaint();
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 11/Feb/2020
+	 * Objective - This method will change the Coordinate format of the current point
+	 */
 	public void changeCoordinate() {
 		this.isCartesianCoordinate = !this.isCartesianCoordinate;
 		this.repaint();
@@ -182,25 +204,34 @@ public class Plane extends Canvas{
 		}
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 13/Feb/2020
+	 * Objective - this method erase all the lines and create a new line
+	 */
 	public void clearAll() {
-		//clear All Lines
 		lines.clear();
-		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
-		line.add(new CartesianCoordinates(0,0));
-		lines.add(line);
-		currentLine = line;
-		this.repaint();
+		newLine();
 	}
-
+	
+	/**
+	 * @author Michael Alvarado
+	 * Date - 13/Feb/2020
+	 * Objective - this method erase the current line,create a new line with point in the origin and repaint canvas
+	 */
 	public void clear() {
-		//clear only the current Line
 		currentLine.clear();
 		currentLine.add(new CartesianCoordinates(0,0));
 		this.repaint();
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 13/Feb/2020
+	 * Objective - this method create a new list of coordinates(Line), adds point at the origin, adds that line to the list of lines and make this new line the current line. 
+	 * It repaints the canvas so that the change can be seen
+	 */
 	public void newLine() {
-		//Create a new Line to trace
 		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
 		line.add(new CartesianCoordinates(0,0));
 		lines.add(line);
@@ -208,30 +239,63 @@ public class Plane extends Canvas{
 		this.repaint();
 	}
 	
+	
+	/**
+	 * @author Michael Alvarado
+	 * Date - 20/Feb/2020
+	 * Objective - this method will change the color of the current point
+	 */
 	public void currentPointColor(Color cP) {
 		this.cP = cP;
 		this.repaint();
 	}
 	
+	/**
+	 * @author Michael Alvarado
+	 * Date - 20/Feb/2020
+	 * Objective - this method will change the color of the current line
+	 */
 	public void currentLineColor(Color cL) {
 		this.cL = cL;
 		this.repaint();
 	}
 	
+	/**
+	 * @author Michael Alvarado
+	 * Date - 20/Feb/2020
+	 * Objective - this method will change the color of the points previous to the current point
+	 */
 	public void previousPointColor(Color pP) {
 		this.pP = pP;
 		this.repaint();
 	}
 	
+	/**
+	 * @author Michael Alvarado
+	 * Date - 20/Feb/2020
+	 * Objective - this method will change the color of the lines previous to the current line
+	 */
 	public void previousLineColor(Color pL) {
 		this.pL = pL;
 		this.repaint();
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 13/Feb/2020
+	 * @param coor - give the coordinate it want to draw on the plane
+	 * @return - The position in x (in pixels) the coordinate should be painted
+	 */
 	private int printCoordinatesX(Coordinates coor) {
 		return ((int)(coor.getX()/this.scale*xGap)+xOrigin);
 	}
 
+	/**
+	 * @author Michael Alvarado
+	 * Date - 13/Feb/2020
+	 * @param coor - give the coordinate it want to draw on the plane
+	 * @return - The position in y (in pixels) the coordinate should be painted
+	 */
 	private int printCoordinatesY(Coordinates coor) {
 		return ((int)(-coor.getY()/this.scale*yGap)+yOrigin);
 	}
