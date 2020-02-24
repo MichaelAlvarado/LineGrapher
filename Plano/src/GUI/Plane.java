@@ -179,7 +179,12 @@ public class Plane extends Canvas{
 		this.isCartesianCoordinate = !this.isCartesianCoordinate;
 		this.repaint();
 	}
-
+	
+	/**
+	 * @author Fabiola Badillo
+	 * Date - 17/Feb/2020
+	 * Objective - This method will add a new displacement in the cartesian format
+	 */
 	public void addCartesianCoordinateDisplacement(int x, int y) {
 		Coordinates coordinate = new CartesianCoordinates(currentPoint.getX()+x,currentPoint.getY()+y);
 		if (coordinate.getX() > 20 || coordinate.getX() < -20 || coordinate.getY() > 20 || coordinate.getY() < -20) {
@@ -190,7 +195,12 @@ public class Plane extends Canvas{
 			this.repaint();
 		}
 	}
-
+	
+	/**
+	 * @author Fabiola Badillo
+	 * Date - 17/Feb/2020
+	 * Objective - This method will add a new displacement in the polar format
+	 */
 	public void addPolarCoordinateDisplacement(int r, int O) {
 		double x = PolarCoordinates.changePolarToX(r, O);
 		double y = PolarCoordinates.changePolarToY(r, O);
